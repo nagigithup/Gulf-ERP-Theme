@@ -1,0 +1,3571 @@
+/* Adapted from Lumen Theme 0.9.1, Lumen Solutions and contributors. SPDX-License-Identifier: AGPL-3.0-only */
+/* ==========================================================================
+   Gulf ERP Theme for Frappe / ERPNext, v13 to v16
+   --------------------------------------------------------------------------
+   Every rule is scoped under html.gulf, which gulf_erp_theme.js adds only when
+   the theme is enabled in Gulf ERP Theme Settings. Features add their own class
+   (gulf-cards, gulf-status, gulf-lists, gulf-compact, gulf-font,
+   gulf-guide). Navigation classes: ge-nav, ge-layout-top, ge-layout-side,
+   ge-bar-color, ge-bar-white, ge-shell16 (v16 has no navbar of its own).
+   Plain CSS, no build step. Logical properties only, so Arabic RTL works.
+   ========================================================================== */
+
+/* ---------- Arabic font (bundled, no external requests) ---------- */
+@font-face {
+	font-family: "Gulf Arabic";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../fonts/ibm-plex-sans-arabic/ibm-plex-sans-arabic-arabic-400-normal.woff2") format("woff2");
+	unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+@font-face {
+	font-family: "Gulf Arabic";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("../fonts/ibm-plex-sans-arabic/ibm-plex-sans-arabic-arabic-500-normal.woff2") format("woff2");
+	unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+@font-face {
+	font-family: "Gulf Arabic";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("../fonts/ibm-plex-sans-arabic/ibm-plex-sans-arabic-arabic-600-normal.woff2") format("woff2");
+	unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+@font-face {
+	font-family: "Gulf Arabic";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("../fonts/ibm-plex-sans-arabic/ibm-plex-sans-arabic-arabic-700-normal.woff2") format("woff2");
+	unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
+/* ---------- Gulf fonts (bundled, no external requests): Plus Jakarta Sans for
+   Latin text, IBM Plex Mono for numbers and IDs. Both under the SIL OFL 1.1. ---------- */
+@font-face {
+	font-family: "Gulf Sans";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../fonts/plus-jakarta-sans/plus-jakarta-sans-latin-ext-400-normal.woff2") format("woff2");
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+	font-family: "Gulf Sans";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../fonts/plus-jakarta-sans/plus-jakarta-sans-latin-400-normal.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+	font-family: "Gulf Sans";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("../fonts/plus-jakarta-sans/plus-jakarta-sans-latin-ext-500-normal.woff2") format("woff2");
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+	font-family: "Gulf Sans";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("../fonts/plus-jakarta-sans/plus-jakarta-sans-latin-500-normal.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+	font-family: "Gulf Sans";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("../fonts/plus-jakarta-sans/plus-jakarta-sans-latin-ext-600-normal.woff2") format("woff2");
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+	font-family: "Gulf Sans";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("../fonts/plus-jakarta-sans/plus-jakarta-sans-latin-600-normal.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+	font-family: "Gulf Sans";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("../fonts/plus-jakarta-sans/plus-jakarta-sans-latin-ext-700-normal.woff2") format("woff2");
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+	font-family: "Gulf Sans";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("../fonts/plus-jakarta-sans/plus-jakarta-sans-latin-700-normal.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+	font-family: "Gulf Sans";
+	font-style: normal;
+	font-weight: 800;
+	font-display: swap;
+	src: url("../fonts/plus-jakarta-sans/plus-jakarta-sans-latin-ext-800-normal.woff2") format("woff2");
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+	font-family: "Gulf Sans";
+	font-style: normal;
+	font-weight: 800;
+	font-display: swap;
+	src: url("../fonts/plus-jakarta-sans/plus-jakarta-sans-latin-800-normal.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+	font-family: "Gulf Mono";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../fonts/ibm-plex-mono/ibm-plex-mono-latin-ext-400-normal.woff2") format("woff2");
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+	font-family: "Gulf Mono";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../fonts/ibm-plex-mono/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+	font-family: "Gulf Mono";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("../fonts/ibm-plex-mono/ibm-plex-mono-latin-ext-500-normal.woff2") format("woff2");
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+	font-family: "Gulf Mono";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("../fonts/ibm-plex-mono/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+	font-family: "Gulf Mono";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("../fonts/ibm-plex-mono/ibm-plex-mono-latin-ext-600-normal.woff2") format("woff2");
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+	font-family: "Gulf Mono";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("../fonts/ibm-plex-mono/ibm-plex-mono-latin-600-normal.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ==========================================================================
+   Tokens
+   ========================================================================== */
+html.gulf {
+	--ge-brand: #1463ff; /* overwritten per user by gulf_erp_theme.js */
+	--ge-bg: #f4f6fa;
+	--ge-panel: #ffffff;
+	--ge-panel2: #f0f3f8;
+	--ge-panel3: #e9edf4;
+	--ge-hover: #eef2f8;
+	--ge-border: #e4e8f0;
+	--ge-border2: #d4dae5;
+	--ge-divider: #edf0f5;
+	--ge-ink: #0c1322;
+	--ge-ink2: #3a4456;
+	--ge-muted: #5e6878;
+	--ge-faint: #98a1b2;
+	--ge-danger: #e0413f;
+	/* Gulf accent and the end of the brand gradient */
+	--ge-acc: #7fa8ff;
+	--ge-deep: color-mix(in srgb, var(--ge-brand) 84%, #04103a);
+
+	--ge-brand-ink: var(--ge-brand);
+	--ge-brand-soft: color-mix(in srgb, var(--ge-brand) 7%, var(--ge-panel));
+	--ge-brand-soft2: color-mix(in srgb, var(--ge-brand) 13%, var(--ge-panel));
+	--ge-brand-line: color-mix(in srgb, var(--ge-brand) 45%, var(--ge-panel));
+	--ge-brand-hover: color-mix(in srgb, var(--ge-brand) 86%, #000);
+	--ge-brand-press: color-mix(in srgb, var(--ge-brand) 74%, #000);
+	--ge-focus: 0 0 0 3px color-mix(in srgb, var(--ge-brand) 30%, transparent);
+
+	--ge-bar-bg: var(--ge-brand);
+	--ge-bar-fg: #ffffff;
+	--ge-bar-fg2: rgba(255, 255, 255, 0.86);
+	--ge-bar-hover: rgba(255, 255, 255, 0.13);
+	--ge-bar-press: rgba(255, 255, 255, 0.26);
+	--ge-bar-on: rgba(255, 255, 255, 0.2);
+	--ge-bar-line: transparent;
+	--ge-bar-search: rgba(255, 255, 255, 0.15);
+	--ge-bar-search-fg: rgba(255, 255, 255, 0.84);
+	--ge-bar-ring: #ffffff;
+	--ge-bar-on-fg: #ffffff;
+
+	--ge-st-draft: #475467;
+	--ge-st-draft-bg: #f2f4f7;
+	--ge-st-unpaid: #93590a;
+	--ge-st-unpaid-bg: #fef3df;
+	--ge-st-paid: #067647;
+	--ge-st-paid-bg: #e3f5ec;
+	--ge-st-overdue: #b42318;
+	--ge-st-overdue-bg: #feeceb;
+	--ge-st-return: #5925dc;
+	--ge-st-return-bg: #f0ebff;
+	--ge-st-cancelled: #667085;
+	--ge-st-submitted: #1849c9;
+	--ge-st-submitted-bg: #eaf0ff;
+
+	--ge-r-sm: 7px;
+	--ge-r-md: 10px;
+	--ge-r-lg: 14px;
+	--ge-r-xl: 18px;
+	--ge-r-app: 22.5%; /* module app tiles */
+	--ge-sh-1: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.05);
+	--ge-sh-2: 0 4px 12px rgba(16, 24, 40, 0.07), 0 2px 4px rgba(16, 24, 40, 0.04);
+	--ge-sh-3: 0 12px 28px rgba(16, 24, 40, 0.12), 0 4px 8px rgba(16, 24, 40, 0.05);
+	--ge-sh-brand: 0 6px 16px color-mix(in srgb, var(--ge-brand) 28%, transparent);
+
+	/* Numbers and IDs. Gulf Mono when Gulf Fonts is on, else the page font. */
+	--ge-mono: var(--font-stack, -apple-system, "Segoe UI", Roboto, sans-serif);
+
+	--ge-gap: 12px;
+	--ge-section-pad: 14px;
+	--ge-top: 48px;
+	--ge-side-w: 240px;
+}
+
+html.gulf[data-theme="dark"] {
+	color-scheme: dark;
+	/* Calm dark (design v3): no near black, no near white */
+	--ge-bg: #15181f;
+	--ge-panel: #1b1f28;
+	--ge-panel2: #20252f;
+	--ge-panel3: #282e3a;
+	--ge-hover: #232833;
+	--ge-border: #2b313d;
+	--ge-border2: #373e4c;
+	--ge-divider: #242a35;
+	--ge-ink: #e3e7ee;
+	--ge-ink2: #b4bbc7;
+	--ge-muted: #8890a0;
+	--ge-faint: #626a79;
+	--ge-danger: #e8857e;
+	--ge-acc: #8eadea;
+
+	--ge-brand-ink: color-mix(in srgb, var(--ge-brand) 45%, #dce4f2);
+	--ge-brand-soft: color-mix(in srgb, var(--ge-brand) 12%, var(--ge-panel));
+	--ge-brand-soft2: color-mix(in srgb, var(--ge-brand) 20%, var(--ge-panel));
+	--ge-brand-line: color-mix(in srgb, var(--ge-brand) 42%, var(--ge-panel));
+	--ge-brand-hover: color-mix(in srgb, var(--ge-brand) 86%, #fff);
+	--ge-brand-press: color-mix(in srgb, var(--ge-brand) 80%, #000);
+	--ge-focus: 0 0 0 3px color-mix(in srgb, var(--ge-brand) 32%, transparent);
+	--ge-sh-brand: none;
+
+	--ge-bar-bg: color-mix(in srgb, var(--ge-brand) 30%, #1b1f28);
+	--ge-bar-fg2: rgba(255, 255, 255, 0.78);
+	--ge-bar-hover: rgba(255, 255, 255, 0.07);
+	--ge-bar-press: rgba(255, 255, 255, 0.13);
+	--ge-bar-on: rgba(255, 255, 255, 0.1);
+
+	--ge-st-draft: #b6bdc9;
+	--ge-st-draft-bg: #272d39;
+	--ge-st-unpaid: #e2b36a;
+	--ge-st-unpaid-bg: #2c2619;
+	--ge-st-paid: #72c7a0;
+	--ge-st-paid-bg: #192821;
+	--ge-st-overdue: #ea8d86;
+	--ge-st-overdue-bg: #311f1f;
+	--ge-st-return: #b3a6ec;
+	--ge-st-return-bg: #25233b;
+	--ge-st-cancelled: #8890a0;
+	--ge-st-submitted: #97b3ec;
+	--ge-st-submitted-bg: #1e2537;
+
+	--ge-sh-1: none;
+	--ge-sh-2: 0 6px 16px rgba(0, 0, 0, 0.26);
+	--ge-sh-3: 0 14px 34px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(48, 55, 68, 0.13);
+}
+
+html.gulf.ge-bar-white {
+	--ge-bar-bg: var(--ge-panel);
+	--ge-bar-fg: var(--ge-ink);
+	--ge-bar-fg2: var(--ge-ink2);
+	--ge-bar-hover: var(--ge-hover);
+	--ge-bar-press: var(--ge-panel3);
+	--ge-bar-on: var(--ge-brand-soft);
+	--ge-bar-line: var(--ge-border);
+	--ge-bar-search: var(--ge-panel2);
+	--ge-bar-search-fg: var(--ge-muted);
+	--ge-bar-ring: var(--ge-brand-line);
+	--ge-bar-on-fg: var(--ge-brand-ink);
+}
+
+html.gulf.gulf-compact {
+	--ge-gap: 8px;
+	--ge-section-pad: 10px;
+}
+
+/* ---------- Frappe's own variables, mapped onto the tokens ----------
+   These legacy names exist in v13 to v16 (v16 keeps them as aliases), so
+   stock components that are not restyled below still follow the theme. */
+html.gulf,
+html.gulf[data-theme="dark"] {
+	--primary: var(--ge-brand);
+	--primary-color: var(--ge-brand);
+	--btn-primary: var(--ge-brand);
+
+	--bg-color: var(--ge-bg);
+	--fg-color: var(--ge-panel);
+	--card-bg: var(--ge-panel);
+	--modal-bg: var(--ge-panel);
+	--popover-bg: var(--ge-panel);
+	--navbar-bg: var(--ge-panel);
+	--control-bg: var(--ge-panel2);
+	--disabled-control-bg: var(--ge-panel2);
+	--subtle-fg: var(--ge-panel2);
+	--subtle-accent: var(--ge-panel2);
+	--fg-hover-color: var(--ge-hover);
+	--highlight-color: var(--ge-hover);
+	--sidebar-select-color: var(--ge-brand-soft);
+
+	--border-color: var(--ge-border);
+	--dark-border-color: var(--ge-border2);
+	--table-border-color: var(--ge-border);
+
+	--text-color: var(--ge-ink);
+	--heading-color: var(--ge-ink);
+	--text-muted: var(--ge-muted);
+	--text-light: var(--ge-muted);
+
+	--border-radius: var(--ge-r-md);
+	--border-radius-md: var(--ge-r-md);
+	--border-radius-lg: var(--ge-r-lg);
+	--shadow-sm: var(--ge-sh-1);
+}
+
+html.gulf.gulf-font {
+	--font-stack: "Inter", "Gulf Arabic", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+/* Gulf Fonts: Plus Jakarta Sans for Latin text (Arabic letters still fall
+   through to the Arabic font), IBM Plex Mono for numbers and IDs. */
+html.gulf.gulf-type {
+	--font-stack: "Gulf Sans", "Gulf Arabic", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--ge-mono: "Gulf Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+html.gulf.gulf-type:not(.gulf-font) {
+	--font-stack: "Gulf Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+html.gulf.gulf-type body,
+html.gulf.gulf-type input,
+html.gulf.gulf-type textarea,
+html.gulf.gulf-type select,
+html.gulf.gulf-type button {
+	font-family: var(--font-stack);
+}
+html.gulf.gulf-type body {
+	letter-spacing: -0.011em;
+}
+html.gulf.gulf-type[dir="rtl"] body {
+	letter-spacing: 0;
+}
+html.gulf.gulf-font body,
+html.gulf.gulf-font input,
+html.gulf.gulf-font textarea,
+html.gulf.gulf-font select,
+html.gulf.gulf-font button {
+	font-family: var(--font-stack);
+}
+html.gulf body {
+	font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   Base surfaces, page head, buttons, inputs
+   ========================================================================== */
+html.gulf body,
+html.gulf .page-container,
+html.gulf .page-body,
+html.gulf .layout-main {
+	background-color: var(--ge-bg);
+}
+
+html.gulf .page-head {
+	background-color: var(--ge-panel);
+	border-bottom: 1px solid var(--ge-border);
+}
+html.gulf .page-head .title-text,
+html.gulf .page-head .page-title .title-area {
+	color: var(--ge-ink);
+	font-weight: 800;
+	letter-spacing: -0.025em;
+}
+html.gulf[dir="rtl"] .page-head .title-text,
+html.gulf[dir="rtl"] .page-head .page-title .title-area {
+	font-weight: 700;
+}
+html.gulf[dir="rtl"] .page-head .title-text {
+	letter-spacing: 0;
+}
+
+html.gulf .btn {
+	border-radius: var(--ge-r-md);
+	font-weight: 600;
+	transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+html.gulf .btn-default,
+html.gulf .btn-secondary {
+	background-color: var(--ge-panel);
+	border: 1px solid var(--ge-border2);
+	color: var(--ge-ink2);
+	box-shadow: var(--ge-sh-1);
+}
+html.gulf .btn-default:hover,
+html.gulf .btn-secondary:hover {
+	background-color: var(--ge-hover);
+	color: var(--ge-ink);
+}
+html.gulf .btn-default:active,
+html.gulf .btn-secondary:active {
+	background-color: var(--ge-panel3);
+	box-shadow: none;
+}
+html.gulf .btn-primary,
+html.gulf .btn-primary:not(:disabled):not(.disabled) {
+	background-color: var(--ge-brand);
+	border-color: var(--ge-brand);
+	color: #fff;
+}
+html.gulf .btn-primary:hover,
+html.gulf .btn-primary:focus {
+	background-color: var(--ge-brand-hover);
+	border-color: var(--ge-brand-hover);
+	color: #fff;
+}
+html.gulf .btn-primary:not(:disabled):not(.disabled):active {
+	background-color: var(--ge-brand-press);
+	border-color: var(--ge-brand-press);
+}
+html.gulf .btn:focus-visible,
+html.gulf .btn.focus {
+	box-shadow: var(--ge-focus);
+	outline: none;
+}
+/* v16 Espresso buttons read their colours from local variables. Only the
+   default (gray) theme is rebranded, red danger buttons stay red. */
+html.gulf .es-button:not([data-theme]),
+html.gulf .es-button[data-theme="gray"] {
+	--bt-solid-bg: var(--ge-brand);
+	--bt-solid-bg-hover: var(--ge-brand-hover);
+	--bt-solid-bg-active: var(--ge-brand-press);
+	--bt-solid-fg: #ffffff;
+}
+html.gulf .es-button {
+	border-radius: var(--ge-r-md);
+}
+
+html.gulf .form-control,
+html.gulf .frappe-control .control-input .form-control,
+html.gulf .awesomplete > input {
+	border-radius: var(--ge-r-md);
+	border: 1px solid var(--ge-border);
+	background-color: var(--ge-panel2);
+	color: var(--ge-ink);
+	transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+html.gulf .form-control:hover {
+	border-color: var(--ge-border2);
+}
+html.gulf .form-control:focus,
+html.gulf .awesomplete > input:focus {
+	background-color: var(--ge-panel);
+	border-color: var(--ge-brand);
+	box-shadow: var(--ge-focus);
+}
+html.gulf .frappe-control .control-label,
+html.gulf .frappe-control label.control-label {
+	color: var(--ge-muted);
+	font-weight: 500;
+	font-size: 12px;
+}
+html.gulf .control-label.reqd::after {
+	color: var(--ge-danger);
+}
+html.gulf .frappe-control a.control-value,
+html.gulf .like-disabled-input a,
+html.gulf .frappe-control[data-fieldtype="Link"] .control-value a {
+	color: var(--ge-brand-ink);
+	font-weight: 500;
+}
+html.gulf input[type="checkbox"]:checked {
+	background-color: var(--ge-brand);
+	border-color: var(--ge-brand);
+}
+
+/* ==========================================================================
+   Navigation: top bar (v13 to v15 reuse the stock navbar)
+   ========================================================================== */
+html.gulf.ge-bar-color .navbar,
+html.gulf.ge-bar-white .navbar {
+	background-color: var(--ge-bar-bg);
+	color: var(--ge-bar-fg);
+	border-bottom: 1px solid var(--ge-bar-line);
+	box-shadow: none;
+	--icon-stroke: var(--ge-bar-fg2);
+}
+html.gulf.ge-bar-color .navbar .nav-link,
+html.gulf.ge-bar-color .navbar .navbar-nav > li > a,
+html.gulf.ge-bar-color .navbar .search-bar .search-icon {
+	color: var(--ge-bar-fg2);
+}
+html.gulf.ge-bar-color .navbar #navbar-search,
+html.gulf.ge-bar-white .navbar #navbar-search {
+	background-color: var(--ge-bar-search);
+	color: var(--ge-bar-fg);
+	border: 1px solid transparent;
+	box-shadow: none;
+}
+html.gulf.ge-bar-white .navbar #navbar-search {
+	border-color: var(--ge-border);
+}
+html.gulf.ge-bar-color .navbar #navbar-search::placeholder {
+	color: var(--ge-bar-search-fg);
+}
+html.gulf.ge-bar-color .navbar .search-bar .search-icon svg,
+html.gulf.ge-bar-color .navbar .nav-link svg {
+	--icon-stroke: var(--ge-bar-fg2);
+}
+
+html.gulf.ge-nav .navbar > .container,
+html.gulf.ge-nav .navbar .container-fluid {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	max-width: none;
+	padding-inline: 10px;
+}
+html.gulf.ge-nav .navbar .navbar-collapse {
+	flex: 0 0 auto;
+}
+html.gulf.ge-nav .navbar .search-bar,
+html.gulf.ge-nav .navbar .navbar-collapse form {
+	width: 300px;
+	max-width: 32vw;
+	flex: 0 0 auto;
+}
+html.gulf.ge-nav.ge-in-module .navbar .ge-brand-native {
+	display: none;
+}
+/* v15 puts breadcrumbs in the navbar. In the top bar layout the module chip
+   and its menus replace them, and the page head keeps the document title. */
+html.gulf.ge-layout-top .navbar #navbar-breadcrumbs,
+html.gulf.ge-layout-top .navbar .navbar-breadcrumbs {
+	display: none !important;
+}
+html.gulf.ge-bar-color .navbar #navbar-breadcrumbs a,
+html.gulf.ge-bar-color .navbar #navbar-breadcrumbs li {
+	color: var(--ge-bar-fg2);
+}
+
+html.gulf .ge-pre,
+html.gulf .ge-slot {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	min-width: 0;
+}
+html.gulf .ge-slot {
+	flex: 1 1 auto;
+	align-self: stretch;
+}
+html.gulf .ge-tb-ic {
+	width: 34px;
+	height: 34px;
+	border: 0;
+	padding: 0;
+	border-radius: var(--ge-r-md);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--ge-bar-fg2);
+	background: transparent;
+	position: relative;
+	flex: none;
+	cursor: pointer;
+}
+html.gulf .ge-tb-ic:hover {
+	background: var(--ge-bar-hover);
+	color: var(--ge-bar-fg);
+}
+html.gulf .ge-tb-ic:focus-visible,
+html.gulf .ge-menu:focus-visible,
+html.gulf .ge-mod:focus-visible {
+	outline: none;
+	box-shadow: inset 0 0 0 2px var(--ge-bar-ring);
+}
+html.gulf .ge-burger {
+	display: none;
+}
+
+/* Language switch: in the stock navbar on v13 to v15, in Gulf's bar on v16 */
+html.gulf .ge-lang-li {
+	display: flex;
+	align-items: center;
+	margin-inline-end: 4px;
+}
+html.gulf .ge-lang {
+	height: 34px;
+	border: 0;
+	padding: 0 10px;
+	border-radius: var(--ge-r-md);
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	color: var(--ge-bar-fg2);
+	background: transparent;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1;
+	white-space: nowrap;
+	flex: none;
+	cursor: pointer;
+}
+html.gulf .ge-lang:hover {
+	background: var(--ge-bar-hover);
+	color: var(--ge-bar-fg);
+}
+html.gulf .ge-lang:focus-visible {
+	outline: none;
+	box-shadow: inset 0 0 0 2px var(--ge-bar-ring);
+}
+html.gulf .ge-lang.ge-busy {
+	opacity: 0.6;
+	cursor: progress;
+}
+html.gulf .ge-lang-t:lang(ar) {
+	font-family: "Gulf Arabic", var(--font-stack, sans-serif);
+	font-size: 13.5px;
+}
+html.gulf .ge-lang-dd {
+	position: fixed;
+	z-index: 1060;
+	min-width: 180px;
+	padding: 6px;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	background: var(--ge-panel);
+	border: 1px solid var(--ge-border);
+	border-radius: var(--ge-r-lg);
+	box-shadow: var(--ge-sh-3);
+}
+html.gulf .ge-lang-o {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	padding: 8px 10px;
+	border: 0;
+	border-radius: var(--ge-r-md);
+	background: transparent;
+	color: var(--ge-ink);
+	font-size: 13.5px;
+	text-align: start;
+	cursor: pointer;
+}
+html.gulf .ge-lang-o:hover,
+html.gulf .ge-lang-o:focus-visible {
+	background: var(--ge-hover);
+	outline: none;
+}
+html.gulf .ge-lang-o.cur {
+	color: var(--ge-brand-ink);
+	font-weight: 600;
+}
+html.gulf .ge-ic {
+	flex: none;
+	display: block;
+}
+html.gulf[dir="rtl"] .ge-flipx {
+	transform: scaleX(-1);
+}
+
+html.gulf .ge-mod {
+	display: flex;
+	align-items: center;
+	gap: 9px;
+	padding: 0 10px 0 4px;
+	font-weight: 700;
+	font-size: 14.5px;
+	white-space: nowrap;
+	margin-inline-end: 6px;
+	min-width: 0;
+	max-width: 240px;
+	flex: none;
+	color: var(--ge-bar-fg);
+	text-decoration: none;
+	border-radius: var(--ge-r-md);
+	height: 34px;
+}
+html.gulf .ge-mod:hover {
+	color: var(--ge-bar-fg);
+	text-decoration: none;
+	background: var(--ge-bar-hover);
+}
+html.gulf .ge-mt {
+	width: 24px;
+	height: 24px;
+	border-radius: var(--ge-r-app);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* Calm tile (design v3): a soft tint, the module colour lives in the glyph */
+	background: color-mix(in srgb, var(--mc) 12%, var(--ge-panel));
+	color: var(--mc);
+	flex: none;
+}
+html.gulf[data-theme="dark"] .ge-mt {
+	background: color-mix(in srgb, var(--mc) 16%, var(--ge-panel));
+	color: color-mix(in srgb, var(--mc) 52%, #e3e7ee);
+}
+html.gulf.ge-bar-color .ge-mod .ge-mt {
+	background: #fff;
+	color: var(--mc);
+}
+html.gulf.ge-bar-color[data-theme="dark"] .ge-mod .ge-mt {
+	background: rgba(255, 255, 255, 0.12);
+	color: color-mix(in srgb, var(--mc) 40%, #fff);
+}
+html.gulf .ge-ell {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	min-width: 0;
+}
+html.gulf .ge-f1 {
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+html.gulf .ge-menus {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow: hidden;
+	align-self: stretch;
+}
+html.gulf .ge-menu {
+	height: 34px;
+	padding: 0 9px 0 11px;
+	border: 0;
+	border-radius: var(--ge-r-md);
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	font-weight: 500;
+	font-size: 13px;
+	color: var(--ge-bar-fg2);
+	background: transparent;
+	white-space: nowrap;
+	position: relative;
+	flex: none;
+	cursor: pointer;
+}
+html.gulf .ge-menu[hidden] {
+	display: none;
+}
+html.gulf .ge-menu .ge-ic {
+	opacity: 0.7;
+}
+html.gulf .ge-menu:hover {
+	background: var(--ge-bar-hover);
+	color: var(--ge-bar-fg);
+}
+html.gulf .ge-menu:active {
+	background: var(--ge-bar-press);
+}
+html.gulf .ge-menu.open {
+	background: var(--ge-bar-on);
+	color: var(--ge-bar-on-fg);
+}
+html.gulf .ge-menu.cur {
+	color: var(--ge-bar-on-fg);
+	font-weight: 600;
+}
+html.gulf .ge-menu.cur::after {
+	content: "";
+	position: absolute;
+	inset-inline: 10px;
+	bottom: 0;
+	height: 3px;
+	border-radius: 3px 3px 0 0;
+	background: currentColor;
+}
+
+/* Dropdowns are attached to <body> so the bar can clip its menus. */
+html.gulf .ge-dd {
+	position: fixed;
+	z-index: 1065;
+	min-width: 240px;
+	max-width: 340px;
+	max-height: calc(100vh - 80px);
+	overflow-y: auto;
+	background: var(--ge-panel);
+	border: 1px solid var(--ge-border);
+	border-radius: var(--ge-r-lg);
+	box-shadow: var(--ge-sh-3);
+	padding: 6px;
+	color: var(--ge-ink);
+	font-weight: 400;
+	text-align: start;
+	font-size: 13px;
+}
+html.gulf .ge-dd-h {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-family: var(--ge-mono);
+	font-size: 10.5px;
+	font-weight: 500;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	color: var(--ge-muted);
+	padding: 7px 10px 5px;
+}
+html.gulf .ge-dd-h::before,
+html.gulf .ge-sb-l::before {
+	content: "";
+	width: 12px;
+	height: 2px;
+	border-radius: 2px;
+	background: var(--ge-brand-ink);
+	flex: none;
+}
+html.gulf[dir="rtl"] .ge-dd-h {
+	font-family: inherit;
+	text-transform: none;
+	letter-spacing: 0;
+	font-size: 11.5px;
+	font-weight: 600;
+}
+html.gulf .ge-dd-i {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	height: 34px;
+	padding: 0 10px;
+	border-radius: var(--ge-r-md);
+	color: var(--ge-ink2);
+	font-weight: 500;
+	white-space: nowrap;
+	text-decoration: none;
+}
+html.gulf .ge-dd-i .ge-ii {
+	color: var(--ge-muted);
+	display: flex;
+}
+html.gulf .ge-dd-i:hover,
+html.gulf .ge-dd-i:focus {
+	background: var(--ge-hover);
+	color: var(--ge-ink);
+	text-decoration: none;
+	outline: none;
+}
+html.gulf .ge-dd-i:focus-visible {
+	box-shadow: inset 0 0 0 2px var(--ge-brand-line);
+}
+html.gulf .ge-dd-i:active {
+	background: var(--ge-panel3);
+}
+html.gulf .ge-dd-i.sel {
+	background: var(--ge-brand-soft);
+	color: var(--ge-brand-ink);
+}
+html.gulf .ge-dd-i.sel .ge-ii {
+	color: var(--ge-brand-ink);
+}
+html.gulf .ge-dd-add {
+	margin-inline-start: auto;
+	width: 24px;
+	height: 24px;
+	border-radius: 6px;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	color: var(--ge-muted);
+	border: 1px solid var(--ge-border2);
+	background: var(--ge-panel);
+	flex: none;
+}
+html.gulf .ge-dd-i:hover .ge-dd-add {
+	display: flex;
+}
+html.gulf .ge-dd-add:hover {
+	color: var(--ge-brand-ink);
+	border-color: var(--ge-brand-line);
+}
+html.gulf .ge-dd .ge-dd-h:not(:first-child) {
+	border-top: 1px solid var(--ge-divider);
+	margin-top: 5px;
+	padding-top: 10px;
+}
+
+/* ---------- v16: Gulf draws the bar, the dock and module sidebar hide ---------- */
+html.gulf .ge-bar16 {
+	position: fixed;
+	top: 0;
+	inset-inline: 0;
+	height: 48px;
+	z-index: 1030;
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	padding: 0 10px;
+	background: var(--ge-bar-bg);
+	color: var(--ge-bar-fg);
+	border-bottom: 1px solid var(--ge-bar-line);
+}
+html.gulf .ge-brand16 {
+	display: flex;
+	align-items: center;
+	gap: 9px;
+	padding: 0 8px;
+	font-size: 14.5px;
+	white-space: nowrap;
+	color: var(--ge-bar-fg);
+	text-decoration: none;
+	flex: none;
+}
+html.gulf .ge-brand16:hover {
+	color: var(--ge-bar-fg);
+	text-decoration: none;
+}
+html.gulf .ge-brand16 img {
+	height: 24px;
+	width: auto;
+}
+html.gulf.ge-in-module .ge-brand16 {
+	display: none;
+}
+html.gulf .ge-search16 {
+	height: 34px;
+	width: 300px;
+	max-width: 30vw;
+	border-radius: var(--ge-r-md);
+	background: var(--ge-bar-search);
+	color: var(--ge-bar-search-fg);
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 0 10px;
+	margin-inline-end: 6px;
+	flex: none;
+	border: 1px solid transparent;
+	font-size: 13px;
+	cursor: text;
+}
+html.gulf.ge-bar-white .ge-search16 {
+	border-color: var(--ge-border);
+}
+html.gulf.ge-layout-side .ge-search16 {
+	width: 440px;
+}
+html.gulf .ge-search16 kbd {
+	font: 500 11px var(--ge-mono);
+	padding: 2px 6px;
+	border-radius: 5px;
+	border: 1px solid currentColor;
+	opacity: 0.7;
+	white-space: nowrap;
+	background: transparent;
+	color: inherit;
+	box-shadow: none;
+}
+html.gulf .ge-dot {
+	position: absolute;
+	top: 7px;
+	inset-inline-end: 8px;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--ge-danger);
+	box-shadow: 0 0 0 2px var(--ge-bar-bg);
+}
+html.gulf .ge-dot[hidden] {
+	display: none;
+}
+html.gulf .ge-user16 {
+	display: inline-flex;
+	margin-inline-start: 4px;
+}
+html.gulf .ge-avatar16 {
+	border: 0;
+	padding: 0;
+	background: transparent;
+	border-radius: 50%;
+	cursor: pointer;
+	display: inline-flex;
+}
+html.gulf.ge-bar-color .ge-avatar16 .avatar {
+	box-shadow: 0 0 0 2px var(--ge-bar-bg), 0 0 0 4px rgba(255, 255, 255, 0.55);
+	border-radius: 50%;
+}
+
+html.gulf.ge-shell16.ge-nav #desk-dock,
+html.gulf.ge-shell16.ge-nav .body-sidebar-container > .body-sidebar,
+html.gulf.ge-shell16.ge-nav .body-sidebar-container > .sidebar-edge,
+html.gulf.ge-shell16.ge-nav .body-sidebar-container > .sidebar-collapse-arrow {
+	display: none !important;
+}
+html.gulf.ge-shell16.ge-nav .body-sidebar-container {
+	width: 0 !important;
+	min-width: 0 !important;
+	flex: 0 0 0 !important;
+	overflow: visible;
+}
+html.gulf.ge-shell16.ge-nav .body-sidebar-container .sidebar-panel {
+	position: fixed;
+	top: 52px;
+	inset-inline-end: 12px;
+	inset-inline-start: auto;
+	z-index: 1040;
+}
+/* v16 scrolls inside .main-section (100dvh tall) and forces body padding to
+   0, so the scroller itself starts under the 48px Gulf bar. The page head
+   keeps its stock sticky top of 0 inside it, and the content starts right
+   under the head instead of 48px behind it. */
+html.gulf.ge-shell16.ge-nav .main-section {
+	margin-inline-start: 0;
+	margin-top: 48px;
+	height: calc(100vh - 48px);
+	height: calc(100dvh - 48px);
+}
+/* The form side column sticks under the page head inside the shorter
+   scroller, so it is 48px shorter than stock. */
+html.gulf.ge-shell16.ge-nav body[data-route^="Form"] .layout-side-section {
+	height: calc(100vh - var(--page-head-height, 48px) - 48px);
+}
+
+/* ---------- v13 to v15: the workspace page keeps its own sidebar hidden
+   while Gulf navigation is on, because the top bar or side menu replaces it ---------- */
+html.gulf.ge-nav body[data-route^="Workspaces"] .layout-side-section,
+html.gulf.ge-nav body[data-route^="workspace"] .layout-side-section,
+html.gulf.ge-nav body[data-route^="Workspaces"] .page-head .sidebar-toggle-btn {
+	display: none;
+}
+
+/* ==========================================================================
+   Side menu (classic layout, and the drawer on phones)
+   ========================================================================== */
+html.gulf .ge-side {
+	position: fixed;
+	top: var(--ge-top);
+	bottom: 0;
+	inset-inline-start: 0;
+	width: var(--ge-side-w);
+	z-index: 1010;
+	background: var(--ge-panel);
+	border-inline-end: 1px solid var(--ge-border);
+	display: flex;
+	flex-direction: column;
+	padding: 10px 8px;
+	gap: 1px;
+	font-size: 13px;
+}
+html.gulf.ge-layout-top .ge-side {
+	display: none;
+}
+html.gulf.ge-layout-side.ge-side-collapsed {
+	--ge-side-w: 64px;
+}
+html.gulf.ge-layout-side #body {
+	padding-inline-start: var(--ge-side-w);
+}
+html.gulf.ge-layout-side .page-head {
+	padding-inline-start: 0;
+}
+html.gulf .ge-sb-l {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-family: var(--ge-mono);
+	font-size: 10.5px;
+	font-weight: 500;
+	color: var(--ge-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.09em;
+	padding: 6px 8px;
+	flex: none;
+}
+html.gulf[dir="rtl"] .ge-sb-l {
+	font-family: inherit;
+	text-transform: none;
+	letter-spacing: 0;
+	font-size: 11.5px;
+	font-weight: 600;
+}
+html.gulf .ge-sb-list {
+	flex: 1 1 0;
+	min-height: 0;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+	scrollbar-width: thin;
+}
+html.gulf .ge-sb-i {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	height: 34px;
+	padding: 0 8px;
+	border-radius: var(--ge-r-md);
+	color: var(--ge-ink2);
+	font-weight: 500;
+	flex: none;
+	text-decoration: none;
+	border: 0;
+	background: transparent;
+	width: 100%;
+	text-align: start;
+	cursor: pointer;
+}
+html.gulf .ge-sb-i:hover {
+	background: var(--ge-hover);
+	color: var(--ge-ink);
+	text-decoration: none;
+}
+html.gulf .ge-sb-i:focus-visible,
+html.gulf .ge-sb-s:focus-visible,
+html.gulf .ge-sb-g:focus-visible {
+	outline: none;
+	box-shadow: inset 0 0 0 2px var(--ge-brand-line);
+}
+html.gulf .ge-sb-i.on {
+	background: var(--ge-brand-soft);
+	color: var(--ge-brand-ink);
+	font-weight: 600;
+}
+html.gulf .ge-sb-i .ge-mt.ghost {
+	background: var(--ge-panel3);
+	color: var(--ge-muted);
+}
+html.gulf .ge-sb-foot {
+	border-top: 1px solid var(--ge-divider);
+	border-radius: 0;
+	margin-top: 4px;
+	padding-top: 6px;
+	height: 40px;
+}
+html.gulf .ge-sb-sub {
+	margin: 2px 0 6px;
+	padding-inline-start: 20px;
+	position: relative;
+}
+html.gulf .ge-sb-sub::before {
+	content: "";
+	position: absolute;
+	inset-inline-start: 19px;
+	top: 4px;
+	bottom: 4px;
+	width: 1px;
+	background: var(--ge-border);
+}
+html.gulf .ge-sb-g {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	width: 100%;
+	border: 0;
+	background: transparent;
+	font-size: 12.5px;
+	color: var(--ge-muted);
+	height: 30px;
+	padding: 0 10px 0 14px;
+	border-radius: var(--ge-r-sm);
+	cursor: pointer;
+	text-align: start;
+}
+html.gulf .ge-sb-g.open {
+	color: var(--ge-faint);
+	font-size: 11.5px;
+	font-weight: 600;
+}
+html.gulf .ge-sb-g:hover {
+	background: var(--ge-hover);
+}
+html.gulf .ge-sb-s {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	height: 30px;
+	padding: 0 10px 0 14px;
+	border-radius: var(--ge-r-sm);
+	color: var(--ge-ink2);
+	font-size: 12.5px;
+	position: relative;
+	text-decoration: none;
+}
+html.gulf .ge-sb-s .ge-ic {
+	color: var(--ge-muted);
+}
+html.gulf .ge-sb-s:hover {
+	background: var(--ge-hover);
+	color: var(--ge-ink);
+	text-decoration: none;
+}
+html.gulf .ge-sb-s.on {
+	background: var(--ge-brand-soft);
+	color: var(--ge-brand-ink);
+	font-weight: 600;
+}
+html.gulf .ge-sb-s.on .ge-ic {
+	color: var(--ge-brand-ink);
+}
+html.gulf .ge-sb-s.on::before {
+	content: "";
+	position: absolute;
+	inset-inline-start: -1px;
+	top: 6px;
+	bottom: 6px;
+	width: 2px;
+	border-radius: 2px;
+	background: var(--ge-brand-ink);
+}
+html.gulf.ge-side-collapsed .ge-side .ge-sb-i > .ge-f1,
+html.gulf.ge-side-collapsed .ge-side .ge-sb-i > .ge-ic,
+html.gulf.ge-side-collapsed .ge-side .ge-sb-l,
+html.gulf.ge-side-collapsed .ge-side .ge-sb-sub {
+	display: none;
+}
+
+/* ==========================================================================
+   Apps home
+   ========================================================================== */
+html.gulf body[data-route="gulf-apps"] .page-head {
+	display: none;
+}
+html.gulf body[data-route="gulf-apps"],
+html.gulf body[data-route="gulf-apps"] .page-container,
+html.gulf body[data-route="gulf-apps"] .page-body,
+html.gulf body[data-route="gulf-apps"] .layout-main {
+	background: var(--ge-bg);
+}
+html.gulf body[data-route="gulf-apps"] .page-container {
+	position: relative;
+	background:
+		radial-gradient(760px 380px at 50% -40px, color-mix(in srgb, var(--ge-brand) 13%, transparent), transparent 70%),
+		radial-gradient(520px 320px at 88% 110%, color-mix(in srgb, var(--ge-acc) 10%, transparent), transparent 70%),
+		var(--ge-bg);
+	min-height: calc(100vh - var(--ge-top));
+}
+/* A faint 44px grid under the greeting, fading out towards the edges */
+html.gulf body[data-route="gulf-apps"] .page-container::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	opacity: 0.55;
+	background-image: linear-gradient(var(--ge-border) 1px, transparent 1px),
+		linear-gradient(90deg, var(--ge-border) 1px, transparent 1px);
+	background-size: 44px 44px;
+	-webkit-mask-image: radial-gradient(ellipse 640px 300px at 50% 0, #000, transparent 75%);
+	mask-image: radial-gradient(ellipse 640px 300px at 50% 0, #000, transparent 75%);
+}
+html.gulf body[data-route="gulf-apps"] .page-container > * {
+	position: relative;
+}
+html.gulf body[data-route="gulf-apps"] .page-body,
+html.gulf body[data-route="gulf-apps"] .layout-main,
+html.gulf body[data-route="gulf-apps"] .layout-main-section-wrapper,
+html.gulf body[data-route="gulf-apps"] .layout-main-section {
+	background: transparent;
+	border: 0;
+	box-shadow: none;
+}
+html.gulf .ge-home {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 48px 16px 48px;
+	color: var(--ge-ink);
+}
+html.gulf .ge-hello {
+	font-size: 26px;
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	margin-bottom: 18px;
+	text-align: center;
+}
+html.gulf[dir="rtl"] .ge-hello {
+	font-weight: 700;
+	letter-spacing: 0;
+}
+/* Today's date above the greeting, the Gulf kicker */
+html.gulf .ge-kick {
+	display: inline-flex;
+	align-items: center;
+	gap: 9px;
+	font-family: var(--ge-mono);
+	font-size: 11.5px;
+	font-weight: 500;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--ge-brand-ink);
+	margin-bottom: 10px;
+}
+html.gulf .ge-kick::before {
+	content: "";
+	width: 18px;
+	height: 2px;
+	border-radius: 2px;
+	background: var(--ge-brand-ink);
+}
+html.gulf[dir="rtl"] .ge-kick {
+	font-family: inherit;
+	letter-spacing: 0;
+	text-transform: none;
+	font-size: 12.5px;
+	font-weight: 600;
+}
+html.gulf .ge-hs {
+	width: 600px;
+	max-width: 100%;
+	height: 46px;
+	border-radius: var(--ge-r-lg);
+	background: var(--ge-panel);
+	border: 1px solid var(--ge-border);
+	box-shadow: var(--ge-sh-2);
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 0 14px;
+	color: var(--ge-muted);
+	font-size: 14px;
+	cursor: text;
+	text-align: start;
+}
+html.gulf .ge-hs {
+	position: relative;
+	z-index: 5;
+}
+html.gulf .ge-hs:focus-within {
+	border-color: var(--ge-brand);
+	box-shadow: var(--ge-focus);
+}
+html.gulf .ge-hs > svg {
+	flex: none;
+}
+/* Frappe wraps the input in .awesomplete. The result list hangs from the
+   whole box, not from the input. */
+html.gulf .ge-hs .awesomplete,
+html.gulf .ge-hs .awesomebar-input-row {
+	position: static;
+	flex: 1;
+	min-width: 0;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+html.gulf .ge-hs .awesomebar-search-icon {
+	display: none;
+}
+html.gulf .ge-hs .ge-hs-in,
+html.gulf .ge-hs .awesomplete > input,
+html.gulf .ge-hs .awesomplete > input:focus {
+	flex: 1;
+	width: 100%;
+	min-width: 0;
+	height: 100%;
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	box-shadow: none;
+	outline: none;
+	color: var(--ge-ink);
+	font-size: 14px;
+}
+html.gulf .ge-hs .ge-hs-in::placeholder {
+	color: var(--ge-muted);
+	opacity: 1;
+}
+html.gulf .ge-hs .awesomplete > ul,
+html.gulf .ge-hs .awesomplete > [role="listbox"] {
+	top: calc(100% + 6px);
+	inset-inline: 0;
+	width: auto;
+	min-width: 0;
+	max-height: min(60vh, 380px);
+	padding: 6px;
+	border-radius: 12px;
+	border: 1px solid var(--ge-border);
+	background: var(--ge-panel);
+	box-shadow: var(--ge-sh-2);
+	text-align: start;
+	z-index: 6;
+}
+html.gulf .ge-hs .awesomplete > ul > li,
+html.gulf .ge-hs .awesomplete > [role="listbox"] > [role="option"] {
+	color: var(--ge-ink);
+	border-radius: 8px;
+}
+html.gulf .ge-hs .awesomplete > ul > li:hover,
+html.gulf .ge-hs .awesomplete > ul > li[aria-selected="true"],
+html.gulf .ge-hs .awesomplete > [role="listbox"] > [role="option"]:hover,
+html.gulf .ge-hs .awesomplete > [role="listbox"] > [role="option"][aria-selected="true"] {
+	background: var(--ge-brand-soft);
+	color: var(--ge-ink);
+}
+html.gulf .ge-hs .awesomplete > ul > li a,
+html.gulf .ge-hs .awesomplete > [role="listbox"] > [role="option"] a {
+	color: inherit;
+}
+html.gulf .ge-hs .awesomplete mark {
+	background: transparent;
+	color: var(--ge-brand-ink);
+	font-weight: 600;
+	padding: 0;
+}
+html.gulf .ge-tiles-h {
+	width: 100%;
+	max-width: 868px;
+	margin: 40px 0 0;
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--ge-muted);
+	padding-inline: 6px;
+}
+html.gulf .ge-tiles {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 148px);
+	max-width: 868px;
+	width: 100%;
+	justify-content: center;
+	gap: 16px 32px;
+	margin-top: 36px;
+}
+html.gulf .ge-tiles-h + .ge-tiles {
+	margin-top: 14px;
+}
+html.gulf .ge-tile {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	padding: 14px 6px 12px;
+	border-radius: var(--ge-r-xl);
+	cursor: pointer;
+	text-decoration: none;
+	color: var(--ge-ink);
+}
+html.gulf .ge-tile:hover {
+	background: var(--ge-panel);
+	box-shadow: var(--ge-sh-2);
+	text-decoration: none;
+	color: var(--ge-ink);
+}
+html.gulf .ge-tile:focus-visible {
+	outline: none;
+	box-shadow: var(--ge-focus);
+}
+html.gulf .ge-tic {
+	width: 64px;
+	height: 64px;
+	border-radius: var(--ge-r-app);
+	background: color-mix(in srgb, var(--mc) 11%, var(--ge-panel));
+	color: var(--mc);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mc) 16%, transparent);
+}
+html.gulf .ge-tile:not(.ge-tile-new):hover .ge-tic {
+	background: color-mix(in srgb, var(--mc) 15%, var(--ge-panel));
+}
+html.gulf[data-theme="dark"] .ge-tic {
+	background: color-mix(in srgb, var(--mc) 16%, var(--ge-panel));
+	color: color-mix(in srgb, var(--mc) 52%, #e3e7ee);
+	box-shadow: none;
+}
+html.gulf[data-theme="dark"] .ge-tile:not(.ge-tile-new):hover .ge-tic {
+	background: color-mix(in srgb, var(--mc) 22%, var(--ge-panel));
+}
+html.gulf .ge-tl {
+	font-weight: 600;
+	font-size: 13.5px;
+	text-align: center;
+	line-height: 1.3;
+	max-width: 136px;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+html.gulf .ge-home-empty {
+	margin-top: 40px;
+	color: var(--ge-muted);
+}
+
+/* ==========================================================================
+   Appearance panel
+   ========================================================================== */
+html.gulf .ge-ap {
+	position: fixed;
+	inset-inline-end: 12px;
+	width: 384px;
+	max-width: calc(100vw - 24px);
+	max-height: calc(100vh - 72px);
+	overflow-y: auto;
+	z-index: 1070;
+	background: var(--ge-panel);
+	border: 1px solid var(--ge-border);
+	border-radius: 16px;
+	box-shadow: var(--ge-sh-3);
+	color: var(--ge-ink);
+	font-size: 13px;
+}
+html.gulf .ge-row {
+	display: flex;
+	align-items: center;
+}
+html.gulf .ge-g8 {
+	gap: 8px;
+}
+html.gulf .ge-g10 {
+	gap: 10px;
+}
+html.gulf .ge-g12 {
+	gap: 12px;
+}
+html.gulf .ge-wrap {
+	flex-wrap: wrap;
+}
+html.gulf .ge-ap-h {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 14px 16px;
+	border-bottom: 1px solid var(--ge-divider);
+	font-size: 14px;
+}
+html.gulf .ge-ap-h > .ge-ic {
+	color: var(--ge-brand-ink);
+}
+html.gulf .ge-ap-x {
+	width: 28px;
+	height: 28px;
+	border: 0;
+	border-radius: var(--ge-r-md);
+	background: transparent;
+	color: var(--ge-muted);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+html.gulf .ge-ap-x:hover {
+	background: var(--ge-hover);
+}
+html.gulf .ge-ap-s {
+	padding: 12px 16px;
+	border-bottom: 1px solid var(--ge-divider);
+}
+html.gulf .ge-ap-prev {
+	background: var(--ge-panel2);
+}
+html.gulf .ge-ap-last {
+	border-bottom: 0;
+}
+html.gulf .ge-ap-note {
+	font-size: 12px;
+	color: var(--ge-muted);
+	margin-top: 7px;
+}
+html.gulf .ge-ap-l {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--ge-muted);
+	margin-bottom: 9px;
+}
+html.gulf .ge-ap-lock {
+	margin-inline-start: auto;
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	font-size: 11.5px;
+	font-weight: 500;
+}
+html.gulf .ge-ap-s.locked .ge-ap-ctl {
+	opacity: 0.45;
+	pointer-events: none;
+}
+html.gulf .ge-ap-sub {
+	font-size: 12px;
+	color: var(--ge-muted);
+	width: 92px;
+	flex: none;
+}
+html.gulf .ge-ap-hexrow {
+	margin-top: 11px;
+}
+html.gulf .ge-hex {
+	flex: 1;
+	height: 30px;
+	border-radius: var(--ge-r-md);
+	border: 1px solid var(--ge-border);
+	background: var(--ge-panel2);
+	color: var(--ge-ink);
+	padding: 0 10px;
+	font: inherit;
+	text-transform: uppercase;
+}
+html.gulf .ge-hex:focus {
+	outline: none;
+	border-color: var(--ge-brand);
+	box-shadow: var(--ge-focus);
+}
+html.gulf .ge-ap-warn {
+	margin-top: 8px;
+	font-size: 12px;
+	color: var(--ge-st-unpaid);
+}
+html.gulf .ge-opt {
+	flex: 1;
+	border: 1.5px solid var(--ge-border);
+	border-radius: 10px;
+	padding: 7px;
+	background: var(--ge-panel);
+	position: relative;
+	cursor: pointer;
+	text-align: start;
+	color: var(--ge-ink);
+}
+html.gulf .ge-opt:hover {
+	border-color: var(--ge-border2);
+	background: var(--ge-hover);
+}
+html.gulf .ge-opt.on {
+	border-color: var(--ge-brand);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--ge-brand) 14%, transparent);
+}
+html.gulf .ge-opt:focus-visible {
+	outline: none;
+	box-shadow: var(--ge-focus);
+}
+html.gulf .ge-ol {
+	font-size: 12.5px;
+	font-weight: 600;
+	margin-top: 7px;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+html.gulf .ge-okc {
+	position: absolute;
+	bottom: 7px;
+	inset-inline-end: 7px;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: var(--ge-brand);
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+html.gulf .ge-art {
+	display: flex;
+	height: 44px;
+	border-radius: 6px;
+	background: var(--ge-panel2);
+	border: 1px solid var(--ge-border);
+	overflow: hidden;
+	position: relative;
+}
+html.gulf .ge-art-top::before {
+	content: "";
+	position: absolute;
+	inset-inline: 0;
+	top: 0;
+	height: 9px;
+	background: var(--ge-brand);
+}
+html.gulf .ge-art-side::before {
+	content: "";
+	position: absolute;
+	inset-block: 0;
+	inset-inline-start: 0;
+	width: 16px;
+	background: var(--ge-brand);
+}
+html.gulf .ge-art-bar {
+	height: 18px;
+	background: var(--ge-brand);
+}
+html.gulf .ge-art-bar.white {
+	background: var(--ge-panel);
+}
+html.gulf .ge-swd {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background: var(--c);
+	flex: none;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	cursor: pointer;
+	border: 0;
+	padding: 0;
+	transition: transform 0.12s ease;
+}
+html.gulf .ge-swd:hover {
+	transform: scale(1.08);
+}
+html.gulf .ge-swd.on {
+	box-shadow: 0 0 0 2px var(--ge-panel), 0 0 0 4px var(--c);
+}
+html.gulf .ge-swd:focus-visible {
+	outline: none;
+	box-shadow: 0 0 0 2px var(--ge-panel), 0 0 0 4px var(--ge-brand-line);
+}
+html.gulf .ge-swd.cus {
+	background: var(--ge-panel);
+	border: 1.5px dashed var(--ge-border2);
+	color: var(--ge-muted);
+	overflow: hidden;
+}
+html.gulf .ge-swd.cus.on {
+	background: var(--c);
+	border: 1.5px solid var(--c);
+	color: #fff;
+}
+html.gulf .ge-color-in {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	padding: 0;
+}
+html.gulf .ge-seg {
+	display: flex;
+	background: var(--ge-panel3);
+	border-radius: var(--ge-r-md);
+	padding: 2px;
+	gap: 2px;
+}
+html.gulf .ge-seg button {
+	flex: 1;
+	height: 30px;
+	border: 0;
+	background: transparent;
+	border-radius: 6px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	font-size: 12.5px;
+	font-weight: 600;
+	color: var(--ge-muted);
+	cursor: pointer;
+}
+html.gulf .ge-seg button.on {
+	background: var(--ge-panel);
+	color: var(--ge-ink);
+	box-shadow: var(--ge-sh-1);
+}
+html.gulf[data-theme="dark"] .ge-seg button.on {
+	background: var(--ge-panel2);
+	box-shadow: inset 0 0 0 1px var(--ge-border2);
+}
+html.gulf .ge-ap-f {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 12px 16px;
+	background: var(--ge-panel2);
+	border-top: 1px solid var(--ge-divider);
+}
+html.gulf .ge-link {
+	border: 0;
+	background: transparent;
+	padding: 0;
+	color: var(--ge-brand-ink);
+	font-weight: 500;
+	font-size: 12px;
+	cursor: pointer;
+}
+html.gulf .ge-link:hover {
+	text-decoration: underline;
+}
+
+/* Mini preview inside the panel */
+html.gulf .ge-mini {
+	--pb: var(--pc);
+	position: relative;
+	height: 124px;
+	border: 1px solid var(--ge-border);
+	border-radius: 8px;
+	overflow: hidden;
+	background: #f4f5f7;
+	display: block;
+}
+html.gulf .ge-mini.dark {
+	background: #0c0f15;
+	border-color: #262c39;
+}
+html.gulf .ge-mini i,
+html.gulf .ge-mini b {
+	display: block;
+	font-style: normal;
+}
+html.gulf .ge-mini-bar {
+	position: absolute;
+	inset-inline: 0;
+	top: 0;
+	height: 20px;
+	background: var(--pc);
+	display: flex !important;
+	align-items: center;
+	gap: 6px;
+	padding: 0 8px;
+}
+html.gulf .ge-mini-bar b {
+	height: 4px;
+	width: 22px;
+	border-radius: 2px;
+	background: rgba(255, 255, 255, 0.8);
+}
+html.gulf .ge-mini.white .ge-mini-bar {
+	background: #fff;
+	border-bottom: 1px solid #e3e6eb;
+}
+html.gulf .ge-mini.white .ge-mini-bar b {
+	background: #d5dae1;
+}
+html.gulf .ge-mini.white.dark .ge-mini-bar {
+	background: #141821;
+	border-color: #262c39;
+}
+html.gulf .ge-mini.white.dark .ge-mini-bar b {
+	background: #353c4c;
+}
+html.gulf .ge-mini.dark:not(.white) .ge-mini-bar {
+	background: color-mix(in srgb, var(--pc) 70%, #0c0f15);
+}
+html.gulf .ge-mini.side .ge-mini-bar b {
+	display: none;
+}
+html.gulf .ge-mini-side {
+	display: none !important;
+}
+html.gulf .ge-mini.side .ge-mini-side {
+	display: block !important;
+	position: absolute;
+	top: 20px;
+	bottom: 0;
+	inset-inline-start: 0;
+	width: 44px;
+	background: #fff;
+	border-inline-end: 1px solid #e3e6eb;
+	background-image: linear-gradient(var(--pc), var(--pc));
+	background-size: 30px 4px;
+	background-repeat: no-repeat;
+	background-position: 7px 10px;
+}
+html.gulf[dir="rtl"] .ge-mini.side .ge-mini-side {
+	background-position: calc(100% - 7px) 10px;
+}
+html.gulf .ge-mini.side.dark .ge-mini-side {
+	background-color: #141821;
+	border-color: #262c39;
+}
+html.gulf .ge-mini-body {
+	position: absolute;
+	top: 28px;
+	bottom: 8px;
+	inset-inline-start: 8px;
+	inset-inline-end: 8px;
+}
+html.gulf .ge-mini.side .ge-mini-body {
+	inset-inline-start: 52px;
+}
+html.gulf .ge-mini-t {
+	position: absolute;
+	top: 2px;
+	inset-inline-start: 0;
+	width: 54px;
+	height: 6px;
+	border-radius: 3px;
+	background: #344054;
+}
+html.gulf .ge-mini.dark .ge-mini-t {
+	background: #c3c9d4;
+}
+html.gulf .ge-mini-btn {
+	position: absolute;
+	top: 0;
+	inset-inline-end: 0;
+	width: 30px;
+	height: 11px;
+	border-radius: 3px;
+	background: var(--pc);
+}
+html.gulf .ge-mini-card {
+	position: absolute;
+	top: 18px;
+	bottom: 0;
+	inset-inline: 0;
+	border-radius: 5px;
+	background: #fff;
+	border: 1px solid #e3e6eb;
+}
+html.gulf .ge-mini.dark .ge-mini-card {
+	background: #141821;
+	border-color: #262c39;
+}
+
+/* ==========================================================================
+   Form tabs, sections, child tables
+   ========================================================================== */
+html.gulf .form-tabs-list {
+	background-color: var(--ge-panel);
+	border-bottom: 1px solid var(--ge-border);
+}
+html.gulf .form-tabs-list .nav-link {
+	color: var(--ge-muted);
+	font-weight: 500;
+}
+html.gulf .form-tabs-list .nav-link:hover {
+	color: var(--ge-ink);
+}
+html.gulf .form-tabs-list .nav-link.active {
+	color: var(--ge-brand-ink);
+	border-bottom-color: var(--ge-brand-ink);
+	font-weight: 600;
+}
+html.gulf .form-section .section-head {
+	color: var(--ge-ink);
+	font-weight: 700;
+	font-size: 13.5px;
+}
+html.gulf .form-section .section-head .collapse-indicator {
+	color: var(--ge-faint);
+}
+
+html.gulf .form-grid {
+	border-radius: var(--ge-r-md);
+	border-color: var(--ge-border);
+	overflow: hidden;
+}
+html.gulf .form-grid .grid-heading-row {
+	background-color: var(--ge-panel2);
+	color: var(--ge-muted);
+	font-weight: 600;
+	font-size: 11.5px;
+}
+html.gulf .form-grid .grid-body .grid-row:hover {
+	background-color: var(--ge-hover);
+}
+html.gulf .form-grid .grid-row .editable-row .static-area,
+html.gulf .form-grid .grid-row .row-index {
+	font-variant-numeric: tabular-nums;
+}
+html.gulf .form-grid .grid-footer {
+	background-color: var(--ge-panel2);
+}
+
+/* Cards, widgets, modals, dropdowns */
+html.gulf .frappe-card,
+html.gulf .widget,
+html.gulf .widget.shortcut-widget-box,
+html.gulf .number-widget-box {
+	border-radius: var(--ge-r-lg);
+	border: 1px solid var(--ge-border);
+	box-shadow: var(--ge-sh-1);
+	background-color: var(--ge-panel);
+}
+html.gulf .widget.shortcut-widget-box:hover,
+html.gulf .widget.links-widget-box:hover {
+	border-color: var(--ge-brand-line);
+}
+html.gulf .number-widget-box .widget-content .number {
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+html.gulf .modal-content {
+	border-radius: var(--ge-r-lg);
+	border: 1px solid var(--ge-border);
+	box-shadow: var(--ge-sh-3);
+	background-color: var(--ge-panel);
+}
+html.gulf .dropdown-menu {
+	border-radius: var(--ge-r-lg);
+	border: 1px solid var(--ge-border);
+	box-shadow: var(--ge-sh-3);
+	background-color: var(--ge-panel);
+	padding: 6px;
+}
+html.gulf .dropdown-item {
+	border-radius: var(--ge-r-md);
+}
+html.gulf .dropdown-item:hover,
+html.gulf .dropdown-item:focus {
+	background-color: var(--ge-hover);
+}
+
+/* Stock sidebars (list filters, v16 module sidebar in standard layout) */
+html.gulf .desk-sidebar .standard-sidebar-item.selected,
+html.gulf .desk-sidebar .sidebar-item-container.selected > .standard-sidebar-item,
+html.gulf .list-sidebar .selected,
+html.gulf .body-sidebar .standard-sidebar-item.active-sidebar,
+html.gulf .body-sidebar .standard-sidebar-item.selected {
+	background-color: var(--ge-brand-soft);
+	color: var(--ge-brand-ink);
+}
+
+/* ==========================================================================
+   Feature: form sections as cards (gulf-cards)
+   v13 already draws each section as a card. v14+ draws one big card with
+   divider lines, so there the outer card turns transparent and each visible
+   section becomes its own card.
+   ========================================================================== */
+html.gulf.gulf-cards body[data-route^="Form/"] .layout-main-section.frappe-card,
+html.gulf.gulf-cards .form-layout > .form-page {
+	background: transparent;
+	border: none;
+	box-shadow: none;
+	overflow: visible;
+}
+html.gulf.gulf-cards .form-layout .form-tabs-list {
+	background-color: var(--ge-panel);
+	border: 1px solid var(--ge-border);
+	border-radius: var(--ge-r-lg);
+	box-shadow: var(--ge-sh-1);
+	margin-bottom: var(--ge-gap);
+}
+html.gulf.gulf-cards .form-layout .form-tabs-list .nav-link {
+	padding-top: 11px;
+	padding-bottom: 11px;
+}
+html.gulf.gulf-cards .form-layout .form-section.card-section.visible-section,
+html.gulf.gulf-cards .form-layout .form-dashboard-section.visible-section {
+	background-color: var(--ge-panel);
+	border: 1px solid var(--ge-border);
+	border-radius: var(--ge-r-lg);
+	box-shadow: var(--ge-sh-1);
+	margin-bottom: var(--ge-gap);
+	padding: calc(var(--ge-section-pad) - 8px);
+}
+html.gulf.gulf-cards .form-layout .form-section.card-section.visible-section:last-child {
+	border-bottom: 1px solid var(--ge-border);
+}
+html.gulf.gulf-cards .form-layout .form-section .section-head {
+	border-bottom: 1px solid var(--ge-divider);
+	margin-bottom: 8px;
+	padding-bottom: 10px;
+}
+html.gulf.gulf-cards .form-layout .form-section .section-head.collapsed {
+	border-bottom-color: transparent;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+html.gulf.gulf-cards .form-footer {
+	background: transparent;
+}
+
+/* ==========================================================================
+   Feature: section guide (gulf-guide)
+   Numbers come from a CSS counter, so they follow hidden sections and tabs.
+   ========================================================================== */
+html.gulf.gulf-guide .form-layout .form-page,
+html.gulf.gulf-guide .form-layout .tab-pane {
+	counter-reset: ge-sec;
+}
+html.gulf.gulf-guide .form-layout .form-section .section-head {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+html.gulf.gulf-guide .form-layout .form-section .section-head::before {
+	counter-increment: ge-sec;
+	content: counter(ge-sec);
+	width: 22px;
+	height: 22px;
+	border-radius: 7px;
+	background: var(--ge-brand-soft);
+	color: var(--ge-brand-ink);
+	font-family: var(--ge-mono);
+	font-size: 11.5px;
+	font-weight: 600;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: none;
+}
+html.gulf.gulf-guide .form-layout .form-section .section-head.collapsed::before {
+	background: var(--ge-panel3);
+	color: var(--ge-muted);
+}
+html.gulf.gulf-guide .form-layout .form-section .section-head .collapse-indicator {
+	margin-inline-start: auto;
+}
+html.gulf .ge-sec-sum {
+	color: var(--ge-muted);
+	font-size: 12.5px;
+	font-weight: 400;
+	padding-inline-start: 10px;
+	border-inline-start: 1px solid var(--ge-border);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	min-width: 0;
+	flex: 0 1 auto;
+}
+html.gulf .ge-toc {
+	margin-bottom: 14px;
+}
+html.gulf .ge-toc:empty {
+	display: none;
+}
+html.gulf .ge-toc-h {
+	font-family: var(--ge-mono);
+	font-size: 10.5px;
+	font-weight: 500;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	color: var(--ge-muted);
+	margin-bottom: 6px;
+}
+html.gulf[dir="rtl"] .ge-toc-h {
+	font-family: inherit;
+	font-size: 11.5px;
+	font-weight: 600;
+	letter-spacing: 0;
+	text-transform: none;
+}
+html.gulf .ge-toc-i {
+	display: flex;
+	align-items: center;
+	gap: 9px;
+	width: 100%;
+	height: 30px;
+	padding: 0 8px;
+	border: 0;
+	background: transparent;
+	border-radius: var(--ge-r-sm);
+	color: var(--ge-muted);
+	font-weight: 500;
+	font-size: 12.5px;
+	text-align: start;
+	cursor: pointer;
+}
+html.gulf .ge-toc-i:hover {
+	background: var(--ge-hover);
+	color: var(--ge-ink);
+}
+html.gulf .ge-toc-i b {
+	width: 18px;
+	height: 18px;
+	border-radius: 5px;
+	background: var(--ge-panel3);
+	font-family: var(--ge-mono);
+	font-size: 10.5px;
+	font-weight: 500;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--ge-muted);
+	flex: none;
+}
+html.gulf .ge-toc-i.ge-on {
+	background: var(--ge-brand-soft);
+	color: var(--ge-brand);
+}
+html.gulf .ge-toc-i.ge-on b {
+	background: var(--ge-brand);
+	color: #fff;
+}
+/* "On this page" stays in view on long forms. The sidebar is stretched to
+   the full column so the list can travel the whole page. The rest of the
+   sidebar scrolls away underneath it. */
+@media (min-width: 992px) {
+	html.gulf .layout-side-section .form-sidebar.ge-has-toc {
+		height: 100%;
+	}
+	html.gulf .form-sidebar.ge-has-toc > .ge-toc {
+		position: sticky;
+		top: var(--ge-toc-top, 120px);
+		z-index: 3;
+		max-height: var(--ge-toc-max, calc(100vh - var(--ge-toc-top, 120px) - 16px));
+		overflow-y: auto;
+		background: var(--ge-bg);
+		padding-bottom: 6px;
+		box-shadow: 0 10px 8px -8px var(--ge-bg);
+	}
+}
+
+/* ==========================================================================
+   Feature: clearer status badges (gulf-status)
+   Frappe colours its pills by meaning, so each colour maps to a status tone.
+   ========================================================================== */
+html.gulf.gulf-status .indicator-pill {
+	--ge-b-fg: var(--ge-st-draft);
+	--ge-b-bg: var(--ge-st-draft-bg);
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	height: 22px;
+	padding: 0 9px;
+	border-radius: 999px;
+	font-size: 11.5px;
+	font-weight: 700;
+	line-height: 1;
+	white-space: nowrap;
+	background: var(--ge-b-bg);
+	color: var(--ge-b-fg);
+}
+html.gulf.gulf-status .indicator-pill::before {
+	background: currentColor;
+	width: 6px;
+	height: 6px;
+	margin: 0;
+}
+html.gulf.gulf-status .page-head .indicator-pill {
+	height: 24px;
+	font-size: 12px;
+	padding: 0 11px;
+}
+html.gulf.gulf-status .indicator-pill.orange,
+html.gulf.gulf-status .indicator-pill.yellow {
+	--ge-b-fg: var(--ge-st-unpaid);
+	--ge-b-bg: var(--ge-st-unpaid-bg);
+}
+html.gulf.gulf-status .indicator-pill.green {
+	--ge-b-fg: var(--ge-st-paid);
+	--ge-b-bg: var(--ge-st-paid-bg);
+}
+html.gulf.gulf-status .indicator-pill.red {
+	--ge-b-fg: var(--ge-st-overdue);
+	--ge-b-bg: var(--ge-st-overdue-bg);
+}
+html.gulf.gulf-status .indicator-pill.purple,
+html.gulf.gulf-status .indicator-pill.pink {
+	--ge-b-fg: var(--ge-st-return);
+	--ge-b-bg: var(--ge-st-return-bg);
+}
+html.gulf.gulf-status .indicator-pill.blue,
+html.gulf.gulf-status .indicator-pill.cyan,
+html.gulf.gulf-status .indicator-pill.light-blue {
+	--ge-b-fg: var(--ge-st-submitted);
+	--ge-b-bg: var(--ge-st-submitted-bg);
+}
+html.gulf.gulf-status .indicator-pill[data-filter*=",=,Return"],
+html.gulf.gulf-status .indicator-pill[data-filter*="is_return,=,Yes"],
+html.gulf.gulf-status .es-badge[data-filter*=",=,Return"],
+html.gulf.gulf-status .es-badge[data-filter*="is_return,=,Yes"] {
+	--ge-b-fg: var(--ge-st-return);
+	--ge-b-bg: var(--ge-st-return-bg);
+}
+html.gulf.gulf-status .indicator-pill[data-filter*=",=,Draft"],
+html.gulf.gulf-status .indicator-pill[data-filter*="docstatus,=,0"],
+html.gulf.gulf-status .indicator-pill.ge-draft {
+	--ge-b-fg: var(--ge-st-draft);
+	--ge-b-bg: var(--ge-st-draft-bg);
+}
+html.gulf.gulf-status .indicator-pill.ge-cancelled,
+html.gulf.gulf-status .indicator-pill[data-filter*="Cancelled"],
+html.gulf.gulf-status .indicator-pill[data-filter*="docstatus,=,2"] {
+	--ge-b-fg: var(--ge-st-cancelled);
+	--ge-b-bg: transparent;
+	box-shadow: inset 0 0 0 1px var(--ge-border2);
+}
+/* v16 Espresso badges carry the same meaning in data-theme */
+html.gulf.gulf-status .es-badge {
+	--ge-b-fg: var(--ge-st-draft);
+	--ge-b-bg: var(--ge-st-draft-bg);
+	height: 22px;
+	padding-inline: 9px;
+	font-size: 11.5px;
+	font-weight: 600;
+	border-radius: 999px;
+	background: var(--ge-b-bg);
+	color: var(--ge-b-fg);
+	border-color: transparent;
+	gap: 6px;
+}
+html.gulf.gulf-status .es-badge::before {
+	content: "";
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: currentColor;
+	flex: none;
+}
+html.gulf.gulf-status .es-badge .es-badge__label {
+	color: inherit;
+}
+html.gulf.gulf-status .es-badge[data-theme="amber"],
+html.gulf.gulf-status .es-badge[data-theme="orange"],
+html.gulf.gulf-status .es-badge[data-theme="yellow"] {
+	--ge-b-fg: var(--ge-st-unpaid);
+	--ge-b-bg: var(--ge-st-unpaid-bg);
+}
+html.gulf.gulf-status .es-badge[data-theme="green"] {
+	--ge-b-fg: var(--ge-st-paid);
+	--ge-b-bg: var(--ge-st-paid-bg);
+}
+html.gulf.gulf-status .es-badge[data-theme="red"] {
+	--ge-b-fg: var(--ge-st-overdue);
+	--ge-b-bg: var(--ge-st-overdue-bg);
+}
+html.gulf.gulf-status .es-badge[data-theme="purple"],
+html.gulf.gulf-status .es-badge[data-theme="violet"],
+html.gulf.gulf-status .es-badge[data-theme="pink"] {
+	--ge-b-fg: var(--ge-st-return);
+	--ge-b-bg: var(--ge-st-return-bg);
+}
+html.gulf.gulf-status .es-badge[data-theme="blue"],
+html.gulf.gulf-status .es-badge[data-theme="cyan"] {
+	--ge-b-fg: var(--ge-st-submitted);
+	--ge-b-bg: var(--ge-st-submitted-bg);
+}
+html.gulf.gulf-status .es-badge[data-filter*=",=,Draft"],
+html.gulf.gulf-status .es-badge[data-filter*="docstatus,=,0"] {
+	--ge-b-fg: var(--ge-st-draft);
+	--ge-b-bg: var(--ge-st-draft-bg);
+}
+html.gulf.gulf-status .es-badge[data-filter*="Cancelled"],
+html.gulf.gulf-status .es-badge[data-filter*="docstatus,=,2"] {
+	--ge-b-fg: var(--ge-st-cancelled);
+	--ge-b-bg: transparent;
+	box-shadow: inset 0 0 0 1px var(--ge-border2);
+}
+html.gulf.gulf-status .page-head .es-badge {
+	height: 24px;
+	font-size: 12px;
+	padding-inline: 11px;
+}
+
+/* ==========================================================================
+   Feature: clearer list rows (gulf-lists)
+   ========================================================================== */
+html.gulf.gulf-lists .frappe-list .result,
+html.gulf.gulf-lists .frappe-list .list-row-head {
+	background-color: var(--ge-panel);
+}
+html.gulf.gulf-lists .list-row-container {
+	border-bottom: 1px solid var(--ge-divider);
+}
+html.gulf.gulf-lists .list-row-container:hover,
+html.gulf.gulf-lists .list-row-container .list-row:hover {
+	background-color: var(--ge-hover);
+}
+html.gulf.gulf-lists .list-row-container:has(.list-row-checkbox:checked),
+html.gulf.gulf-lists .list-row-container:has(.list-row-checkbox:checked) .list-row {
+	background-color: var(--ge-brand-soft);
+}
+/* Multilingual search: the English name shown next to the local one */
+html.gulf .ge-en {
+	color: var(--ge-muted);
+	font-size: 0.92em;
+	font-weight: 400;
+	margin-inline-start: 6px;
+	unicode-bidi: isolate;
+}
+
+/* Status quick filters above a list */
+html.gulf.gulf-qf .ge-qf {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 10px 12px;
+	overflow-x: auto;
+	scrollbar-width: thin;
+	border-bottom: 1px solid var(--ge-divider);
+	background: var(--ge-panel);
+}
+html.gulf .ge-qf-c {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	height: 30px;
+	padding-block: 0;
+	padding-inline: 11px 6px;
+	border: 1px solid var(--ge-border);
+	border-radius: 999px;
+	background: var(--ge-panel);
+	color: var(--ge-ink2);
+	font-size: 12.5px;
+	font-weight: 500;
+	line-height: 1;
+	white-space: nowrap;
+	flex: none;
+	cursor: pointer;
+}
+html.gulf .ge-qf-c:hover {
+	border-color: var(--ge-border2);
+	background: var(--ge-hover);
+}
+html.gulf .ge-qf-c:focus-visible {
+	outline: none;
+	box-shadow: var(--ge-focus);
+}
+html.gulf .ge-qf-c.on {
+	background: var(--ge-brand-soft);
+	border-color: var(--ge-brand-line);
+	color: var(--ge-brand-ink);
+	font-weight: 600;
+}
+html.gulf .ge-qf-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	flex: none;
+	background: var(--ge-st-submitted);
+}
+html.gulf .ge-qf-dot.ge-qf-draft {
+	background: var(--ge-st-draft);
+}
+html.gulf .ge-qf-dot.ge-qf-unpaid {
+	background: var(--ge-st-unpaid);
+}
+html.gulf .ge-qf-dot.ge-qf-paid {
+	background: var(--ge-st-paid);
+}
+html.gulf .ge-qf-dot.ge-qf-overdue {
+	background: var(--ge-st-overdue);
+}
+html.gulf .ge-qf-dot.ge-qf-return {
+	background: var(--ge-st-return);
+}
+html.gulf .ge-qf-dot.ge-qf-cancelled {
+	background: var(--ge-st-cancelled);
+}
+html.gulf .ge-qf-n {
+	min-width: 20px;
+	padding: 3px 7px;
+	border-radius: 999px;
+	background: var(--ge-panel2);
+	color: var(--ge-muted);
+	font-size: 11.5px;
+	font-weight: 600;
+	text-align: center;
+	font-variant-numeric: tabular-nums;
+}
+html.gulf .ge-qf-c.on .ge-qf-n {
+	background: var(--ge-panel);
+	color: inherit;
+}
+html.gulf:not(.gulf-qf) .ge-qf {
+	display: none;
+}
+
+html.gulf.gulf-lists .list-row-head {
+	background-color: var(--ge-panel2);
+	color: var(--ge-muted);
+	font-weight: 600;
+	font-size: 11.5px;
+}
+html.gulf.gulf-lists .list-row .level-left .list-subject a,
+html.gulf.gulf-lists .list-row .list-subject .bold a {
+	color: var(--ge-ink);
+	font-weight: 600;
+}
+/* Compact density works on its own, with or without clearer rows */
+html.gulf.gulf-compact .list-row-container .list-row,
+html.gulf.gulf-compact .list-row-head {
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+/* ==========================================================================
+   Phones and narrow windows
+   ========================================================================== */
+@media (max-width: 767px) {
+	html.gulf.gulf-cards .form-layout .form-section.card-section.visible-section {
+		border-radius: var(--ge-r-md);
+		padding: 4px;
+	}
+	html.gulf.ge-nav .ge-menus,
+	html.gulf.ge-nav .ge-mod .ge-ell {
+		display: none;
+	}
+	html.gulf.ge-nav .ge-burger {
+		display: inline-flex;
+		width: 44px;
+		height: 44px;
+	}
+	html.gulf.ge-nav .ge-tb-ic {
+		width: 44px;
+		height: 44px;
+	}
+	html.gulf .ge-lang {
+		height: 44px;
+		min-width: 44px;
+		padding: 0;
+		justify-content: center;
+	}
+	html.gulf .ge-lang .ge-lang-t,
+	html.gulf .ge-lang .ge-ic + .ge-ic {
+		display: none;
+	}
+	html.gulf.ge-nav .ge-search16 {
+		width: auto;
+		flex: 1 1 auto;
+		max-width: none;
+	}
+	html.gulf.ge-nav .ge-search16 kbd {
+		display: none;
+	}
+	html.gulf.ge-nav .ge-side,
+	html.gulf.ge-nav.ge-layout-top .ge-side {
+		display: flex;
+		width: min(86vw, 320px);
+		transform: translateX(-105%);
+		box-shadow: var(--ge-sh-3);
+		z-index: 1050;
+	}
+	/* Slide only while the user opens or closes the drawer. Without this the
+	   drawer is drawn open on page load and visibly slides away. */
+	html.gulf.ge-nav.ge-drawer-anim .ge-side {
+		transition: transform 0.2s ease;
+	}
+	/* v13 to v15 navbar: the apps and menu buttons keep their size and the
+	   search box gives way, so nothing overlaps on a phone. */
+	html.gulf.ge-nav .ge-pre {
+		flex: none;
+	}
+	html.gulf.ge-nav .navbar .ge-slot {
+		flex: 0 1 auto;
+	}
+	html.gulf.ge-nav .navbar .navbar-collapse {
+		flex: 1 1 auto;
+		min-width: 0;
+		justify-content: flex-end;
+	}
+	html.gulf.ge-nav .navbar .search-bar,
+	html.gulf.ge-nav .navbar .navbar-collapse form {
+		width: auto;
+		flex: 1 1 auto;
+		min-width: 0;
+		max-width: none;
+	}
+	html.gulf.ge-nav .navbar #navbar-search {
+		min-width: 0;
+		width: 100%;
+		text-overflow: ellipsis;
+	}
+	html.gulf.ge-nav .navbar .search-bar {
+		margin: 0 4px;
+	}
+	html.gulf.ge-nav .navbar .navbar-nav {
+		align-items: center;
+	}
+	html.gulf.ge-nav .navbar .navbar-nav > .nav-item {
+		margin: 0;
+		margin-inline-start: 6px;
+	}
+	html.gulf.ge-nav[dir="rtl"] .ge-side {
+		transform: translateX(105%);
+	}
+	html.gulf.ge-nav.ge-drawer-open .ge-side {
+		transform: none;
+	}
+	html.gulf.ge-layout-side #body {
+		padding-inline-start: 0;
+	}
+	html.gulf.ge-side-collapsed .ge-side .ge-sb-i > .ge-f1,
+	html.gulf.ge-side-collapsed .ge-side .ge-sb-l,
+	html.gulf.ge-side-collapsed .ge-side .ge-sb-sub {
+		display: revert;
+	}
+	html.gulf .ge-sb-foot {
+		display: none;
+	}
+	html.gulf .ge-sb-i,
+	html.gulf .ge-sb-s {
+		min-height: 44px;
+	}
+	html.gulf .ge-tiles {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 18px 8px;
+	}
+	html.gulf .ge-tic {
+		width: 58px;
+		height: 58px;
+	}
+	html.gulf .ge-home {
+		padding-top: 28px;
+	}
+	html.gulf .ge-ap {
+		inset-inline: 12px;
+		width: auto;
+	}
+}
+
+/* Small phones: the module chip repeats what the drawer shows, so it gives
+   its place to the search box. */
+@media (max-width: 419px) {
+	html.gulf.ge-nav .navbar .ge-slot .ge-mod {
+		display: none;
+	}
+	html.gulf.ge-nav .navbar .search-bar,
+	html.gulf.ge-nav .navbar .navbar-collapse form {
+		min-width: 64px;
+	}
+	/* v16 bar: hide the chip, 40px buttons, and a search box that can
+	   shrink down to its icon. */
+	html.gulf.ge-nav .ge-bar16 .ge-mod {
+		display: none;
+	}
+	html.gulf.ge-nav .ge-bar16 .ge-tb-ic,
+	html.gulf.ge-nav .ge-bar16 .ge-lang {
+		width: 40px;
+		min-width: 40px;
+		height: 40px;
+	}
+	html.gulf.ge-nav .ge-bar16 .ge-search16 {
+		min-width: 40px;
+		padding: 0 11px;
+		margin-inline-end: 2px;
+		overflow: hidden;
+	}
+	html.gulf.ge-nav .ge-bar16 .ge-search16 .ge-ic {
+		flex: none;
+	}
+	html.gulf.ge-nav .ge-bar16 .ge-f1 {
+		display: none;
+	}
+}
+
+/* ----------------------------------------------------- workspace access */
+
+html.gulf .ge-ws-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	margin-inline-end: 8px;
+}
+html.gulf .ge-ws-btn svg {
+	flex: none;
+}
+html.gulf .ge-wsa-name {
+	font-weight: 600;
+	color: var(--ge-ink);
+	margin-bottom: 4px;
+}
+html.gulf .ge-wsa-note {
+	font-size: 12px;
+	color: var(--ge-muted);
+	padding-top: 2px;
+}
+
+/* ---------------------------------------------------- workspace builder */
+
+html.gulf .ge-tile-new {
+	background: transparent;
+	border: 0;
+	font: inherit;
+}
+html.gulf .ge-tile-new .ge-tic {
+	background: transparent;
+	color: var(--ge-muted);
+	border: 1.5px dashed var(--ge-border);
+	box-shadow: none;
+}
+html.gulf .ge-tile-new:hover .ge-tic {
+	color: var(--ge-brand-ink);
+	border-color: var(--ge-brand-line);
+	background: var(--ge-brand-soft);
+}
+html.gulf .ge-tile-new .ge-tl {
+	color: var(--ge-muted);
+}
+html.gulf .ge-wsb-look {
+	display: flex;
+	gap: 24px;
+	align-items: flex-start;
+	margin: 4px 0 8px;
+}
+html.gulf .ge-wsb-prev {
+	flex: none;
+	width: 124px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	padding: 14px 6px 12px;
+	border-radius: var(--ge-r-xl);
+	background: var(--ge-panel2);
+	color: var(--ge-ink);
+}
+html.gulf .ge-wsb-sets {
+	flex: 1;
+	min-width: 0;
+}
+html.gulf .ge-wsb-lbl {
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--ge-ink2);
+	margin: 0 0 6px;
+}
+html.gulf .ge-wsb-sets .ge-wsb-lbl + div {
+	margin-bottom: 12px;
+}
+html.gulf .ge-wsb-icons,
+html.gulf .ge-wsb-colors {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+html.gulf .ge-wsb-ic {
+	width: 34px;
+	height: 34px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 9px;
+	border: 1px solid var(--ge-border);
+	background: var(--ge-panel);
+	color: var(--ge-ink2);
+	padding: 0;
+	cursor: pointer;
+}
+html.gulf .ge-wsb-ic:hover {
+	background: var(--ge-hover);
+}
+html.gulf .ge-wsb-ic.on {
+	border-color: var(--ge-brand);
+	color: var(--ge-brand-ink);
+	background: var(--ge-brand-soft);
+}
+html.gulf .ge-wsb-co {
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	border: 2px solid var(--ge-panel);
+	background: var(--mc);
+	box-shadow: 0 0 0 1px var(--ge-border);
+	padding: 0;
+	cursor: pointer;
+}
+html.gulf .ge-wsb-co.on {
+	box-shadow: 0 0 0 2px var(--mc);
+}
+html.gulf .ge-wsb-ic:focus-visible,
+html.gulf .ge-wsb-co:focus-visible,
+html.gulf .ge-wsb-opt:focus-visible {
+	outline: none;
+	box-shadow: var(--ge-focus);
+}
+html.gulf .ge-wsb-pick {
+	margin-bottom: 16px;
+}
+html.gulf .ge-wsb-help {
+	font-size: 12px;
+	color: var(--ge-muted);
+	margin: -2px 0 8px;
+}
+html.gulf .ge-wsb-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-bottom: 8px;
+}
+html.gulf .ge-wsb-none {
+	font-size: 12px;
+	color: var(--ge-faint);
+}
+html.gulf .ge-wsb-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding-block: 3px;
+	padding-inline: 10px 4px;
+	border-radius: 999px;
+	background: var(--ge-brand-soft);
+	color: var(--ge-brand-ink);
+	font-size: 12.5px;
+	font-weight: 500;
+}
+html.gulf .ge-wsb-x {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	border: 0;
+	border-radius: 50%;
+	background: transparent;
+	color: inherit;
+	padding: 0;
+	cursor: pointer;
+}
+html.gulf .ge-wsb-x:hover {
+	background: var(--ge-brand-soft2);
+}
+html.gulf .ge-wsb-find {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+html.gulf .ge-wsb-find svg {
+	position: absolute;
+	inset-inline-start: 10px;
+	color: var(--ge-muted);
+	pointer-events: none;
+}
+html.gulf .ge-wsb-q {
+	width: 100%;
+	height: 34px;
+	padding-inline: 32px 10px;
+	border: 1px solid var(--ge-border);
+	border-radius: 8px;
+	background: var(--ge-panel);
+	color: var(--ge-ink);
+	font-size: 13px;
+}
+html.gulf .ge-wsb-q:focus {
+	outline: none;
+	border-color: var(--ge-brand);
+	box-shadow: var(--ge-focus);
+}
+html.gulf .ge-wsb-list {
+	margin-top: 6px;
+	max-height: 232px;
+	overflow-y: auto;
+	border: 1px solid var(--ge-border);
+	border-radius: 8px;
+	background: var(--ge-panel);
+	padding: 4px;
+}
+html.gulf .ge-wsb-opt {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	padding: 6px 8px;
+	border: 0;
+	border-radius: 6px;
+	background: transparent;
+	color: var(--ge-ink);
+	text-align: start;
+	cursor: pointer;
+}
+html.gulf .ge-wsb-opt:hover {
+	background: var(--ge-hover);
+}
+html.gulf .ge-wsb-ck {
+	flex: none;
+	width: 16px;
+	height: 16px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 4px;
+	border: 1.5px solid var(--ge-border);
+	color: #fff;
+}
+html.gulf .ge-wsb-opt.on .ge-wsb-ck {
+	background: var(--ge-brand);
+	border-color: var(--ge-brand);
+}
+html.gulf .ge-wsb-ol {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	font-size: 13px;
+}
+html.gulf .ge-wsb-ol small {
+	font-size: 11.5px;
+	color: var(--ge-muted);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+html.gulf .ge-wsb-empty {
+	padding: 8px;
+	font-size: 12.5px;
+	color: var(--ge-muted);
+}
+@media (max-width: 575px) {
+	html.gulf .ge-wsb-look {
+		flex-direction: column;
+		gap: 12px;
+	}
+	html.gulf .ge-wsb-prev {
+		align-self: center;
+	}
+}
+
+/* ==========================================================================
+   Gulf identity (design v2): the gradient bar, the app logo tile, mono
+   eyebrows and numbers, the primary button shadow. Work areas stay flat.
+   ========================================================================== */
+
+/* Coloured top bar: the Gulf gradient. RTL turns it round so it runs the
+   same way on screen. The white bar style is unchanged. */
+html.gulf.ge-bar-color .navbar,
+html.gulf.ge-bar-color .ge-bar16 {
+	background-image: linear-gradient(100deg, var(--ge-brand), var(--ge-deep));
+}
+html.gulf.ge-bar-color[dir="rtl"] .navbar,
+html.gulf.ge-bar-color[dir="rtl"] .ge-bar16 {
+	background-image: linear-gradient(260deg, var(--ge-brand), var(--ge-deep));
+}
+/* Dark (design v3): a quiet tinted surface, not a saturated gradient */
+html.gulf.ge-bar-color[data-theme="dark"] .navbar,
+html.gulf.ge-bar-color[data-theme="dark"] .ge-bar16,
+html.gulf.ge-bar-color[data-theme="dark"][dir="rtl"] .navbar,
+html.gulf.ge-bar-color[data-theme="dark"][dir="rtl"] .ge-bar16 {
+	background-image: none;
+	background-color: color-mix(in srgb, var(--ge-brand) 26%, #1b1f28);
+	border-bottom: 1px solid color-mix(in srgb, var(--ge-brand) 18%, #2b313d);
+}
+
+/* The site's own app logo (Navbar Settings > App Logo) in a white tile.
+   Gulf never draws or ships a logo of its own. */
+html.gulf .navbar .navbar-brand .app-logo,
+html.gulf .ge-brand16 img {
+	width: 28px;
+	height: 28px;
+	padding: 3px;
+	object-fit: contain;
+	background: #fff;
+	border-radius: 7px;
+	box-shadow: inset 0 0 0 1px rgba(16, 24, 40, 0.08);
+}
+html.gulf.ge-bar-white .navbar .navbar-brand .app-logo,
+html.gulf.ge-bar-white .ge-brand16 img {
+	box-shadow: inset 0 0 0 1px var(--ge-border);
+}
+html.gulf .ge-brand16 b {
+	font-weight: 800;
+	letter-spacing: -0.02em;
+}
+html.gulf[dir="rtl"] .ge-brand16 b {
+	font-weight: 700;
+	letter-spacing: 0;
+}
+
+/* Table and list headers: mono eyebrows. Arabic keeps its own face. */
+html.gulf .form-grid .grid-heading-row,
+html.gulf.gulf-lists .list-row-head {
+	font-family: var(--ge-mono);
+	font-size: 10.5px;
+	font-weight: 500;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+html.gulf[dir="rtl"] .form-grid .grid-heading-row,
+html.gulf.gulf-lists[dir="rtl"] .list-row-head {
+	font-family: inherit;
+	font-size: 11.5px;
+	font-weight: 600;
+	letter-spacing: 0;
+	text-transform: none;
+}
+/* The headers are wider in mono, so the cells give back some padding */
+html.gulf .form-grid .grid-heading-row .grid-static-col,
+html.gulf .form-grid .grid-heading-row .row-index {
+	padding-inline: 6px;
+}
+html.gulf[dir="rtl"] .form-grid .grid-heading-row .grid-static-col,
+html.gulf[dir="rtl"] .form-grid .grid-heading-row .row-index {
+	padding-inline: 4px;
+}
+html.gulf .form-grid .grid-heading-row .row-check,
+html.gulf .form-grid .grid-row .row-check {
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-overflow: clip;
+}
+
+/* Numbers and IDs in mono, always left to right */
+html.gulf .form-grid .grid-body .grid-static-col[data-fieldtype="Currency"] .static-area,
+html.gulf .form-grid .grid-body .grid-static-col[data-fieldtype="Float"] .static-area,
+html.gulf .form-grid .grid-body .grid-static-col[data-fieldtype="Int"] .static-area,
+html.gulf .form-grid .grid-body .grid-static-col[data-fieldtype="Percent"] .static-area,
+html.gulf .form-grid .grid-body .row-index,
+html.gulf.gulf-lists .list-row .list-row-col.text-right,
+html.gulf .frappe-control[data-fieldtype="Currency"] .control-value,
+html.gulf .frappe-control[data-fieldtype="Float"] .control-value,
+html.gulf .frappe-control[data-fieldtype="Int"] .control-value,
+html.gulf .frappe-control[data-fieldtype="Percent"] .control-value {
+	font-family: var(--ge-mono);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: -0.01em;
+}
+html.gulf .form-grid .grid-body .grid-static-col[data-fieldtype="Currency"] .static-area,
+html.gulf .form-grid .grid-body .grid-static-col[data-fieldtype="Float"] .static-area,
+html.gulf .form-grid .grid-body .grid-static-col[data-fieldtype="Int"] .static-area,
+html.gulf.gulf-lists .list-row .list-row-col.text-right {
+	font-size: 12.5px;
+}
+html.gulf .number-widget-box .number,
+html.gulf .number-card .number {
+	font-family: var(--ge-mono);
+	font-weight: 600;
+	letter-spacing: -0.03em;
+}
+html.gulf .group-by-count,
+html.gulf .list-count,
+html.gulf .ge-qf-n {
+	font-family: var(--ge-mono);
+	font-weight: 500;
+}
+/* The record count is a sentence, not a heading */
+html.gulf.gulf-lists .list-row-head .list-count {
+	text-transform: none;
+	letter-spacing: 0;
+}
+
+/* Section titles: Jakarta 700, slightly tight */
+html.gulf .form-section .section-head {
+	letter-spacing: -0.01em;
+}
+html.gulf[dir="rtl"] .form-section .section-head {
+	letter-spacing: 0;
+}
+
+/* Primary buttons carry the brand shadow (none in dark, see --ge-sh-brand) */
+html.gulf .btn-primary:not(.btn-xs) {
+	box-shadow: var(--ge-sh-brand);
+}
+/* Dark (design v3): the primary fill is mixed into the panel so it does not glow */
+html.gulf[data-theme="dark"] .btn-primary,
+html.gulf[data-theme="dark"] .btn-primary:not(:disabled):not(.disabled) {
+	background-color: color-mix(in srgb, var(--ge-brand) 86%, #1b1f28);
+	border-color: color-mix(in srgb, var(--ge-brand) 86%, #1b1f28);
+}
+html.gulf[data-theme="dark"] .btn-primary:not(:disabled):not(.disabled):hover,
+html.gulf[data-theme="dark"] .btn-primary:not(:disabled):not(.disabled):focus {
+	background-color: var(--ge-brand-hover);
+	border-color: var(--ge-brand-hover);
+}
+html.gulf[data-theme="dark"] .btn-primary:not(:disabled):not(.disabled):active {
+	background-color: var(--ge-brand-press);
+	border-color: var(--ge-brand-press);
+}
+
+/* Quieter home in dark (design v3): a lighter brand wash and a fainter grid */
+html.gulf[data-theme="dark"] body[data-route="gulf-apps"] .page-container {
+	background:
+		radial-gradient(760px 380px at 50% -40px, color-mix(in srgb, var(--ge-brand) 8%, transparent), transparent 70%),
+		var(--ge-bg);
+}
+html.gulf[data-theme="dark"] body[data-route="gulf-apps"] .page-container::before {
+	opacity: 0.3;
+}
+
+/* ---------------------------------------------------- favourites, recent */
+html.gulf .ge-fav {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	padding: 0;
+	margin-inline-end: 8px;
+	color: var(--ge-muted);
+}
+html.gulf .ge-fav.on {
+	color: #d99a00;
+}
+html.gulf .ge-fav.on svg {
+	fill: currentColor;
+}
+html.gulf .ge-quick {
+	width: 100%;
+	max-width: 868px;
+	margin-top: 26px;
+}
+html.gulf .ge-quick-h {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-family: var(--ge-mono);
+	font-size: 10.5px;
+	font-weight: 500;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	color: var(--ge-muted);
+	margin: 14px 6px 8px;
+}
+html.gulf .ge-quick-h::before {
+	content: "";
+	width: 12px;
+	height: 2px;
+	border-radius: 2px;
+	background: var(--ge-brand-ink);
+}
+html.gulf[dir="rtl"] .ge-quick-h {
+	font-family: inherit;
+	font-size: 11.5px;
+	font-weight: 600;
+	letter-spacing: 0;
+	text-transform: none;
+}
+html.gulf .ge-quick-row {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 8px;
+}
+html.gulf .ge-q {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-width: 0;
+	padding: 9px 12px;
+	border-radius: var(--ge-r-lg);
+	background: var(--ge-panel);
+	border: 1px solid var(--ge-border);
+	color: var(--ge-ink);
+	text-decoration: none;
+	box-shadow: var(--ge-sh-1);
+}
+html.gulf .ge-q:hover {
+	border-color: var(--ge-brand-line);
+	box-shadow: var(--ge-sh-2);
+	color: var(--ge-ink);
+	text-decoration: none;
+}
+html.gulf .ge-q:focus-visible {
+	outline: none;
+	box-shadow: var(--ge-focus);
+}
+html.gulf .ge-qi {
+	flex: none;
+	width: 30px;
+	height: 30px;
+	border-radius: 9px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--ge-brand-soft);
+	color: var(--ge-brand-ink);
+}
+html.gulf .ge-q.fav .ge-qi {
+	background: color-mix(in srgb, #d99a00 14%, var(--ge-panel));
+	color: #b07d00;
+}
+html.gulf .ge-q.fav .ge-qi svg {
+	fill: currentColor;
+}
+html.gulf[data-theme="dark"] .ge-q.fav .ge-qi {
+	color: #f5c242;
+}
+html.gulf .ge-qt {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	line-height: 1.3;
+}
+html.gulf .ge-qt b,
+html.gulf .ge-qt small {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+html.gulf .ge-qt b {
+	font-weight: 600;
+	font-size: 13px;
+}
+html.gulf .ge-qt small {
+	font-size: 11.5px;
+	color: var(--ge-muted);
+}
+html.gulf .ge-rec-row {
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+/* Names in another script keep their own direction, so a long English name
+   in an Arabic desk is cut at its end, not its start. */
+html.gulf[dir="rtl"] .ge-qt b[dir="auto"],
+html.gulf[dir="rtl"] .ge-mu-t[dir="auto"] {
+	text-align: right;
+}
+html.gulf .ge-qw {
+	flex: none;
+	margin-inline-start: auto;
+	padding-inline-start: 6px;
+	font-size: 11px;
+	color: var(--ge-muted);
+	white-space: nowrap;
+}
+
+/* Most used document types, then favourites and recent, then all apps */
+html.gulf .ge-act {
+	width: 100%;
+	max-width: 868px;
+}
+html.gulf .ge-act:empty,
+html.gulf .ge-act:empty + .ge-agl-h {
+	display: none;
+}
+html.gulf .ge-mu {
+	margin-top: 26px;
+}
+html.gulf .ge-mu + .ge-quick {
+	margin-top: 10px;
+}
+html.gulf .ge-mu-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+	gap: 8px;
+}
+html.gulf .ge-mu-c {
+	display: flex;
+	align-items: center;
+	min-width: 0;
+	border-radius: var(--ge-r-lg);
+	background: var(--ge-panel);
+	border: 1px solid var(--ge-border);
+	box-shadow: var(--ge-sh-1);
+}
+html.gulf .ge-mu-c:hover {
+	border-color: var(--ge-brand-line);
+	box-shadow: var(--ge-sh-2);
+}
+html.gulf .ge-mu-a {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-height: 54px;
+	padding: 8px 12px;
+	border-radius: var(--ge-r-lg);
+	color: var(--ge-ink);
+	text-decoration: none;
+}
+html.gulf .ge-mu-a:hover {
+	color: var(--ge-ink);
+	text-decoration: none;
+}
+html.gulf .ge-mu-a:focus-visible,
+html.gulf .ge-mu-new:focus-visible {
+	outline: none;
+	box-shadow: var(--ge-focus);
+}
+html.gulf .ge-mu-i {
+	flex: none;
+	width: 34px;
+	height: 34px;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: color-mix(in srgb, var(--mc, var(--ge-brand)) 11%, var(--ge-panel));
+	color: var(--mc, var(--ge-brand));
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mc, var(--ge-brand)) 16%, transparent);
+}
+html.gulf[data-theme="dark"] .ge-mu-i {
+	background: color-mix(in srgb, var(--mc, var(--ge-brand)) 16%, var(--ge-panel));
+	color: color-mix(in srgb, var(--mc, var(--ge-brand)) 52%, #e3e7ee);
+	box-shadow: none;
+}
+html.gulf .ge-mu-t {
+	min-width: 0;
+	font-weight: 600;
+	font-size: 13px;
+	line-height: 1.3;
+	overflow: hidden;
+	overflow-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+html.gulf .ge-mu-new {
+	flex: none;
+	width: 30px;
+	height: 30px;
+	margin-inline-end: 8px;
+	padding: 0;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--ge-muted);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+html.gulf .ge-mu-new:hover {
+	background: var(--ge-brand-soft);
+	color: var(--ge-brand-ink);
+}
+@media (max-width: 480px) {
+	html.gulf .ge-mu-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+	html.gulf .ge-mu-a {
+		gap: 8px;
+		padding-block: 8px;
+		padding-inline: 10px 6px;
+	}
+	html.gulf .ge-mu-i {
+		width: 30px;
+		height: 30px;
+	}
+	html.gulf .ge-mu-new {
+		width: 26px;
+		height: 26px;
+		margin-inline-end: 4px;
+	}
+}
+html.gulf .ge-agl-h {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+	max-width: 868px;
+	margin: 34px 0 0;
+	padding-inline: 6px;
+	font-family: var(--ge-mono);
+	font-size: 10.5px;
+	font-weight: 500;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	color: var(--ge-muted);
+}
+html.gulf .ge-agl-h::before {
+	content: "";
+	width: 12px;
+	height: 2px;
+	border-radius: 2px;
+	background: var(--ge-brand-ink);
+}
+html.gulf[dir="rtl"] .ge-agl-h {
+	font-family: inherit;
+	font-size: 11.5px;
+	font-weight: 600;
+	letter-spacing: 0;
+	text-transform: none;
+}
+html.gulf .ge-agl-h + .ge-tiles {
+	margin-top: 14px;
+}
+
+/* -------------------------------------------------------- summary card */
+html.gulf .ge-sum {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px 28px;
+	margin-bottom: var(--ge-gap);
+	padding: 14px 18px;
+	background: var(--ge-panel);
+	border: 1px solid var(--ge-border);
+	border-radius: var(--ge-r-lg);
+	box-shadow: var(--ge-sh-1);
+}
+html.gulf .ge-sum-c {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+html.gulf .ge-sum-l {
+	font-size: 11.5px;
+	color: var(--ge-muted);
+	white-space: nowrap;
+}
+html.gulf .ge-sum-v {
+	font-size: 13.5px;
+	font-weight: 600;
+	color: var(--ge-ink);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 280px;
+}
+html.gulf .ge-sum-c.num .ge-sum-v,
+html.gulf .ge-sum-c .num {
+	font-family: var(--ge-mono);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: -0.01em;
+}
+html.gulf .ge-sum-c.big .ge-sum-v {
+	font-size: 18px;
+	font-weight: 700;
+}
+html.gulf .ge-sum-c.due .ge-sum-v {
+	color: var(--ge-st-unpaid);
+}
+html.gulf .ge-sum-c.clear .ge-sum-v {
+	color: var(--ge-st-paid);
+}
+html.gulf .ge-sum-c.pct .ge-sum-v {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+html.gulf .ge-sum-pct {
+	width: 72px;
+	height: 6px;
+	border-radius: 6px;
+	background: var(--ge-panel3);
+	overflow: hidden;
+}
+html.gulf .ge-sum-pct i {
+	display: block;
+	height: 100%;
+	border-radius: 6px;
+	background: var(--ge-brand);
+}
+html.gulf .ge-sum-st {
+	margin-inline-start: auto;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	height: 26px;
+	padding: 0 12px;
+	border-radius: 999px;
+	font-size: 12px;
+	font-weight: 700;
+	background: var(--ge-st-submitted-bg);
+	color: var(--ge-st-submitted);
+}
+html.gulf .ge-sum-st i {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: currentColor;
+}
+html.gulf .ge-sum-st.ge-qf-draft {
+	background: var(--ge-st-draft-bg);
+	color: var(--ge-st-draft);
+}
+html.gulf .ge-sum-st.ge-qf-unpaid {
+	background: var(--ge-st-unpaid-bg);
+	color: var(--ge-st-unpaid);
+}
+html.gulf .ge-sum-st.ge-qf-paid {
+	background: var(--ge-st-paid-bg);
+	color: var(--ge-st-paid);
+}
+html.gulf .ge-sum-st.ge-qf-overdue {
+	background: var(--ge-st-overdue-bg);
+	color: var(--ge-st-overdue);
+}
+html.gulf .ge-sum-st.ge-qf-return {
+	background: var(--ge-st-return-bg);
+	color: var(--ge-st-return);
+}
+html.gulf .ge-sum-st.ge-qf-cancelled {
+	background: var(--ge-panel3);
+	color: var(--ge-st-cancelled);
+}
+
+/* ----------------------------------------------------------- Hijri date */
+html.gulf .ge-hijri {
+	margin-top: 3px;
+	font-size: 11.5px;
+	color: var(--ge-muted);
+}
+
+/* ----------------------------------------------------------- notice bar */
+html.gulf .ge-notice {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 9px 16px;
+	font-size: 13px;
+	font-weight: 500;
+	background: var(--ge-brand-soft);
+	color: var(--ge-brand-ink);
+	border-bottom: 1px solid var(--ge-brand-line);
+}
+html.gulf .ge-notice-warn {
+	background: var(--ge-st-unpaid-bg);
+	color: var(--ge-st-unpaid);
+	border-bottom-color: color-mix(in srgb, var(--ge-st-unpaid) 30%, transparent);
+}
+html.gulf .ge-notice-urgent {
+	background: var(--ge-st-overdue-bg);
+	color: var(--ge-st-overdue);
+	border-bottom-color: color-mix(in srgb, var(--ge-st-overdue) 30%, transparent);
+}
+html.gulf .ge-notice-t {
+	flex: 1;
+	min-width: 0;
+	white-space: pre-line;
+}
+html.gulf .ge-notice-x {
+	flex: none;
+	width: 26px;
+	height: 26px;
+	border: 0;
+	border-radius: 7px;
+	background: transparent;
+	color: inherit;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+html.gulf .ge-notice-x:hover {
+	background: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+/* -------------------------------------------------------- empty lists */
+html.gulf.gulf-empty .frappe-list .no-result .msg-box {
+	max-width: 420px;
+	margin: 32px auto;
+	padding: 28px 24px;
+	text-align: center;
+	background: var(--ge-panel2);
+	/* Frappe forces the border off on this box (no-border), so the dashed
+	   edge is an outline. v16 draws its own empty state and is left alone. */
+	outline: 1.5px dashed var(--ge-border2);
+	outline-offset: -1px;
+	border-radius: var(--ge-r-xl);
+	color: var(--ge-muted);
+}
+html.gulf.gulf-empty .frappe-list .no-result .msg-box img {
+	max-height: 84px;
+	opacity: 0.9;
+}
+html.gulf.gulf-empty .frappe-list .no-result .msg-box p:first-of-type,
+html.gulf.gulf-empty .frappe-list .no-result .msg-box .no-result-title {
+	color: var(--ge-ink);
+	font-weight: 600;
+	font-size: 14px;
+}
+html.gulf.gulf-empty .frappe-list .no-result .btn-new-doc {
+	box-shadow: var(--ge-sh-brand);
+}
+
+/* Gulf accessibility refinements preserve the reference geometry and colours. */
+html.gulf :is(button,a,input,select,textarea):focus-visible { outline:2px solid var(--gulf-brand,#1463ff); outline-offset:3px; }
+@media(prefers-reduced-motion:reduce) {
+ html.gulf *,html.gulf *::before,html.gulf *::after { transition-duration:0.01ms!important; animation-duration:0.01ms!important; scroll-behavior:auto!important; }
+}

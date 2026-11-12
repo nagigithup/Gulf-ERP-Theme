@@ -1,0 +1,1 @@
+gulf_erp_theme.patches.arabic_fixes_on

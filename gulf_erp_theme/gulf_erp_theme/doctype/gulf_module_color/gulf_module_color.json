@@ -1,0 +1,47 @@
+{
+ "actions": [],
+ "creation": "2026-10-31 12:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "module",
+  "color",
+  "icon"
+ ],
+ "fields": [
+  {
+   "fieldname": "module",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Module",
+   "reqd": 1
+  },
+  {
+   "fieldname": "color",
+   "fieldtype": "Color",
+   "in_list_view": 1,
+   "label": "Colour",
+   "reqd": 1
+  },
+  {
+   "fieldname": "icon",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Icon",
+   "options": "\ngrid\nlayers\nbag\ncart\nstore\npkg\ntruck\ncalc\nreceipt\ncard\nledger\nusers\ncontact\nkanban\nfactory\nmonitor\nchart\nbook\nbuoy\nwrench",
+   "description": "Icon on the apps screen. Leave empty to let Gulf pick one from the module name."
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2026-11-02 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Gulf ERP Theme",
+ "name": "Gulf Module Color",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

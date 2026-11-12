@@ -1,0 +1,4 @@
+* text=auto eol=lf
+*.woff2 -text
+# Translation source keys contain significant whitespace inside quoted CSV values.
+gulf_erp_theme/arabic/ar_fixes.csv -whitespace

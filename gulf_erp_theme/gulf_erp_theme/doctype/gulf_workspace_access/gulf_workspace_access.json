@@ -1,0 +1,111 @@
+{
+ "actions": [],
+ "autoname": "field:workspace",
+ "creation": "2026-11-01 09:00:00.000000",
+ "description": "Who sees a workspace. Set it from the Who sees this button on the workspace.",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "workspace",
+  "audience",
+  "users",
+  "roles",
+  "gulf_role",
+  "original_roles",
+  "built_by_gulf",
+  "applied_roles"
+ ],
+ "fields": [
+  {
+   "fieldname": "workspace",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Workspace",
+   "options": "Workspace",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "Everyone",
+   "fieldname": "audience",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Who Sees It",
+   "options": "Everyone\nSpecific people",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.audience==\"Specific people\"",
+   "fieldname": "users",
+   "fieldtype": "Table MultiSelect",
+   "label": "People",
+   "options": "Gulf Workspace User"
+  },
+  {
+   "depends_on": "eval:doc.audience==\"Specific people\"",
+   "description": "Everyone with one of these roles sees it too.",
+   "fieldname": "roles",
+   "fieldtype": "Table MultiSelect",
+   "label": "Roles that see it",
+   "options": "Gulf Workspace Role"
+  },
+  {
+   "description": "Gulf gives this role to the people above. It is removed when the workspace is shown to everyone.",
+   "fieldname": "gulf_role",
+   "fieldtype": "Data",
+   "label": "Role Managed by Gulf",
+   "read_only": 1
+  },
+  {
+   "fieldname": "original_roles",
+   "fieldtype": "Small Text",
+   "hidden": 1,
+   "label": "Roles Before Gulf",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "built_by_gulf",
+   "fieldtype": "Check",
+   "label": "Created with Gulf",
+   "read_only": 1,
+   "in_standard_filter": 1,
+   "description": "This workspace was created with the New workspace dialog, so it can be edited or deleted from the workspace page."
+  },
+  {
+   "fieldname": "applied_roles",
+   "fieldtype": "Long Text",
+   "label": "Last Applied Roles",
+   "hidden": 1,
+   "read_only": 1,
+   "no_copy": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-02 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Gulf ERP Theme",
+ "name": "Gulf Workspace Access",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "workspace",
+ "track_changes": 1
+}

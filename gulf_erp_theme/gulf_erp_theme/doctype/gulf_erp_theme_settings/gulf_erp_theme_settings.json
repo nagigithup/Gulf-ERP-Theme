@@ -1,0 +1,523 @@
+{
+ "actions": [],
+ "creation": "2026-10-31 01:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "enabled",
+  "arabic_font",
+  "gulf_fonts",
+  "column_break_general",
+  "apps_home",
+  "language_switch",
+  "switch_languages",
+  "multilang_search",
+  "section_appearance",
+  "default_layout",
+  "brand_color",
+  "column_break_appearance",
+  "default_bar_style",
+  "force_mode",
+  "section_user",
+  "lock_all",
+  "allow_user_layout",
+  "allow_user_color",
+  "allow_user_bar_style",
+  "column_break_user",
+  "reset_all_users",
+  "section_layout",
+  "form_cards",
+  "form_guide",
+  "list_rows",
+  "status_filters",
+  "column_break_layout",
+  "clear_status",
+  "compact",
+  "section_workspaces",
+  "workspace_access",
+  "workspace_builder",
+  "column_break_workspaces",
+  "manage_workspace_access",
+  "create_workspace",
+  "section_landing",
+  "landing_by_role",
+  "landing_pages",
+  "section_login",
+  "branded_login",
+  "login_style",
+  "login_image",
+  "login_title",
+  "column_break_login",
+  "login_welcome",
+  "section_simple",
+  "simple_forms",
+  "form_rules",
+  "section_daily",
+  "most_used",
+  "recent_favourites",
+  "summary_card",
+  "column_break_daily",
+  "hijri_dates",
+  "empty_states",
+  "section_notice",
+  "notice_bar",
+  "notice_message",
+  "column_break_notice",
+  "notice_tone",
+  "notice_until",
+  "section_modules",
+  "module_colors",
+  "section_arabic",
+  "arabic_fixes",
+  "arabic_fix_log"
+ ],
+ "fields": [
+  {
+   "default": "1",
+   "description": "Turns the whole theme on or off for every user.",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enable Gulf ERP Theme"
+  },
+  {
+   "default": "1",
+   "description": "Shows Arabic text in IBM Plex Sans Arabic. English text keeps the system font.",
+   "fieldname": "arabic_font",
+   "fieldtype": "Check",
+   "label": "Arabic Font"
+  },
+  {
+   "default": "1",
+   "fieldname": "gulf_fonts",
+   "fieldtype": "Check",
+   "label": "Gulf Fonts",
+   "description": "English text in Plus Jakarta Sans and numbers, codes and small headings in IBM Plex Mono, as in the Gulf design. Both fonts are bundled with the app. Off keeps the standard Frappe font."
+  },
+  {
+   "fieldname": "column_break_general",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "description": "A home screen with a tile for every module. It opens after login and from the apps button in the top bar.",
+   "fieldname": "apps_home",
+   "fieldtype": "Check",
+   "label": "Apps Home Screen"
+  },
+  {
+   "default": "1",
+   "description": "A button in the top bar that switches the user's own language in one click.",
+   "fieldname": "language_switch",
+   "fieldtype": "Check",
+   "label": "Language Switch"
+  },
+  {
+   "default": "ar, en",
+   "depends_on": "language_switch",
+   "description": "Language codes separated by commas. With two languages the button switches between them. With more it opens a list.",
+   "fieldname": "switch_languages",
+   "fieldtype": "Data",
+   "label": "Languages in the Switch"
+  },
+  {
+   "default": "1",
+   "description": "Search finds documents, reports and pages by their name in any language. A user working in Arabic can type sales invoice and get فاتورة مبيعات.",
+   "fieldname": "multilang_search",
+   "fieldtype": "Check",
+   "label": "Search in Every Language"
+  },
+  {
+   "description": "Applies to every user who has not picked their own appearance, and to new users.",
+   "fieldname": "section_appearance",
+   "fieldtype": "Section Break",
+   "label": "Default Appearance"
+  },
+  {
+   "default": "Top bar",
+   "description": "Top bar puts each module's menus across the top, like Odoo. Side menu keeps a module list on the side. Standard keeps the Frappe navigation and only restyles it.",
+   "fieldname": "default_layout",
+   "fieldtype": "Select",
+   "label": "Layout",
+   "options": "Top bar\nSide menu\nStandard Frappe menu"
+  },
+  {
+   "default": "#1463FF",
+   "description": "Used for the top bar, primary buttons, links, active tabs and focus rings.",
+   "fieldname": "brand_color",
+   "fieldtype": "Color",
+   "label": "Brand Colour"
+  },
+  {
+   "fieldname": "column_break_appearance",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Coloured",
+   "fieldname": "default_bar_style",
+   "fieldtype": "Select",
+   "label": "Top Bar Style",
+   "options": "Coloured\nWhite"
+  },
+  {
+   "default": "Let each user choose",
+   "description": "Each user's own light or dark choice is kept unless you fix it here.",
+   "fieldname": "force_mode",
+   "fieldtype": "Select",
+   "label": "Light or Dark Mode",
+   "options": "Let each user choose\nAlways light\nAlways dark"
+  },
+  {
+   "description": "Unticked options are locked to the defaults above. Users open their own options from Appearance in the user menu.",
+   "fieldname": "section_user",
+   "fieldtype": "Section Break",
+   "label": "What Users Can Change"
+  },
+  {
+   "default": "0",
+   "description": "Everyone sees exactly the defaults above. Appearance stays in the user menu, read only.",
+   "fieldname": "lock_all",
+   "fieldtype": "Check",
+   "label": "Lock All Appearance Options"
+  },
+  {
+   "default": "1",
+   "depends_on": "eval:!doc.lock_all",
+   "fieldname": "allow_user_layout",
+   "fieldtype": "Check",
+   "label": "Users Can Change the Layout"
+  },
+  {
+   "default": "1",
+   "depends_on": "eval:!doc.lock_all",
+   "fieldname": "allow_user_color",
+   "fieldtype": "Check",
+   "label": "Users Can Change the Colour"
+  },
+  {
+   "default": "1",
+   "depends_on": "eval:!doc.lock_all",
+   "fieldname": "allow_user_bar_style",
+   "fieldtype": "Check",
+   "label": "Users Can Change the Top Bar Style"
+  },
+  {
+   "fieldname": "column_break_user",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Users who picked their own appearance keep it. This clears their choices so the defaults apply to everyone.",
+   "fieldname": "reset_all_users",
+   "fieldtype": "Button",
+   "label": "Reset All Users to Default"
+  },
+  {
+   "fieldname": "section_layout",
+   "fieldtype": "Section Break",
+   "label": "Forms and Lists"
+  },
+  {
+   "default": "1",
+   "description": "Each section of a form sits in its own card, so long documents are easier to scan.",
+   "fieldname": "form_cards",
+   "fieldtype": "Check",
+   "label": "Form Sections as Cards"
+  },
+  {
+   "default": "1",
+   "description": "Numbered section titles, an On this page list in the form sidebar, and a short summary on collapsed sections.",
+   "fieldname": "form_guide",
+   "fieldtype": "Check",
+   "label": "Section Guide"
+  },
+  {
+   "default": "1",
+   "description": "Clear lines between rows, a highlight on hover and bold titles.",
+   "fieldname": "list_rows",
+   "fieldtype": "Check",
+   "label": "Clearer List Rows"
+  },
+  {
+   "default": "1",
+   "description": "A row of status buttons above each list, such as Unpaid 5 and Overdue 2. One click shows only that status. The counts follow the other filters.",
+   "fieldname": "status_filters",
+   "fieldtype": "Check",
+   "label": "Status Quick Filters"
+  },
+  {
+   "fieldname": "column_break_layout",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "description": "Larger, easier to read status badges such as Draft, Paid and Overdue.",
+   "fieldname": "clear_status",
+   "fieldtype": "Check",
+   "label": "Clearer Status Badges"
+  },
+  {
+   "default": "0",
+   "description": "Tighter spacing to fit more on screen.",
+   "fieldname": "compact",
+   "fieldtype": "Check",
+   "label": "Compact Density"
+  },
+  {
+   "fieldname": "section_landing",
+   "fieldtype": "Section Break",
+   "label": "After Login"
+  },
+  {
+   "default": "1",
+   "fieldname": "landing_by_role",
+   "fieldtype": "Check",
+   "label": "Landing Page by Role",
+   "description": "After login, each person opens the first row below whose role they have, for example the cashier opens the point of sale. Everyone else opens the apps screen as usual. Put the rows for managers first."
+  },
+  {
+   "depends_on": "landing_by_role",
+   "fieldname": "landing_pages",
+   "fieldtype": "Table",
+   "label": "Landing Pages",
+   "options": "Gulf Landing Page"
+  },
+  {
+   "fieldname": "section_login",
+   "fieldtype": "Section Break",
+   "label": "Login Page"
+  },
+  {
+   "default": "1",
+   "fieldname": "branded_login",
+   "fieldtype": "Check",
+   "label": "Branded Login Page",
+   "description": "The login page in your brand colour, with the company name and a welcome line. The logo is the one in Navbar Settings or Website Settings."
+  },
+  {
+   "default": "Side panel",
+   "depends_on": "branded_login",
+   "fieldname": "login_style",
+   "fieldtype": "Select",
+   "label": "Login Page Style",
+   "options": "Side panel\nCentred\nFull colour\nYour own image\nMinimal",
+   "description": "Side panel: the brand colour beside the sign in box. Centred: the box in the middle of a soft brand wash. Full colour: the whole page in the brand colour. Your own image: the side panel shows the image below. Minimal: a plain page, only the button in the brand colour."
+  },
+  {
+   "depends_on": "eval:doc.branded_login && doc.login_style=='Your own image'",
+   "fieldname": "login_image",
+   "fieldtype": "Attach Image",
+   "label": "Login Page Image",
+   "description": "A photo of at least 1200 by 1200 pixels, such as your office or your products. Upload it as a public file, because visitors see it before they sign in. Without an image the page uses the side panel."
+  },
+  {
+   "depends_on": "branded_login",
+   "fieldname": "login_title",
+   "fieldtype": "Data",
+   "label": "Name on the Login Page",
+   "description": "Leave empty to use the default company, or else the app name in Website Settings."
+  },
+  {
+   "fieldname": "column_break_login",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "branded_login",
+   "fieldname": "login_welcome",
+   "fieldtype": "Data",
+   "label": "Welcome Line",
+   "description": "A short line under the name. Leave empty for: Sign in to continue."
+  },
+  {
+   "fieldname": "section_simple",
+   "fieldtype": "Section Break",
+   "label": "Simpler Forms"
+  },
+  {
+   "default": "1",
+   "fieldname": "simple_forms",
+   "fieldtype": "Check",
+   "label": "Simpler Forms by Role",
+   "description": "Hide fields and sections people do not need, for example tax and accounting fields for salespeople. Only the roles you list, and System Managers, keep seeing them. This changes what the form shows, not what people may read or change. A required field that is still empty always shows."
+  },
+  {
+   "depends_on": "simple_forms",
+   "fieldname": "form_rules",
+   "fieldtype": "Table",
+   "label": "Form Rules",
+   "options": "Gulf Form Rule"
+  },
+  {
+   "fieldname": "section_daily",
+   "fieldtype": "Section Break",
+   "label": "Everyday Use"
+  },
+  {
+   "default": "1",
+   "fieldname": "most_used",
+   "fieldtype": "Check",
+   "label": "Most Used on the Apps Screen",
+   "description": "The apps screen opens with the eight document types each person used most in the last 90 days, with a button to create a new one. Everyone starts with the app tiles until they have used the desk for a while."
+  },
+  {
+   "default": "1",
+   "fieldname": "recent_favourites",
+   "fieldtype": "Check",
+   "label": "Recent and Favourites",
+   "description": "A star on every form saves it to the person's favourites. The apps screen shows their favourites and the documents they opened last, on any device."
+  },
+  {
+   "default": "1",
+   "fieldname": "summary_card",
+   "fieldtype": "Check",
+   "label": "Summary Card on Invoices and Orders",
+   "description": "A card at the top of invoices, orders and quotations with the party, the total, the status and what is still due."
+  },
+  {
+   "fieldname": "column_break_daily",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "hijri_dates",
+   "fieldtype": "Check",
+   "label": "Hijri Date Beside Dates",
+   "description": "Date fields on forms also show the Hijri date (Umm al-Qura). The date saved is still the Gregorian one."
+  },
+  {
+   "default": "1",
+   "fieldname": "empty_states",
+   "fieldtype": "Check",
+   "label": "Clearer Empty Lists",
+   "description": "A list with nothing in it shows a short explanation and a button to create the first one."
+  },
+  {
+   "fieldname": "section_notice",
+   "fieldtype": "Section Break",
+   "label": "Notice Bar"
+  },
+  {
+   "default": "0",
+   "fieldname": "notice_bar",
+   "fieldtype": "Check",
+   "label": "Show a Notice to Everyone",
+   "description": "A bar under the top bar with your message, for example a maintenance date or a new procedure. Each person can close it, and it comes back when you change the message."
+  },
+  {
+   "depends_on": "notice_bar",
+   "fieldname": "notice_message",
+   "fieldtype": "Small Text",
+   "label": "Notice Text"
+  },
+  {
+   "fieldname": "column_break_notice",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Information",
+   "depends_on": "notice_bar",
+   "fieldname": "notice_tone",
+   "fieldtype": "Select",
+   "label": "Notice Type",
+   "options": "Information\nWarning\nUrgent"
+  },
+  {
+   "depends_on": "notice_bar",
+   "fieldname": "notice_until",
+   "fieldtype": "Date",
+   "label": "Show Until",
+   "description": "Leave empty to show it until you turn it off."
+  },
+  {
+   "collapsible": 1,
+   "description": "Every module already has its own colour. Add a row only to change one. Use the module name exactly as it shows in the menu.",
+   "fieldname": "section_modules",
+   "fieldtype": "Section Break",
+   "label": "Module Colours"
+  },
+  {
+   "fieldname": "module_colors",
+   "fieldtype": "Table",
+   "label": "Module Colours",
+   "options": "Gulf Module Color"
+  },
+  {
+   "fieldname": "section_arabic",
+   "fieldtype": "Section Break",
+   "label": "Arabic Translation"
+  },
+  {
+   "default": "1",
+   "description": "Replaces weak or wrong Arabic in Frappe and ERPNext with reviewed, consistent accounting terms. Corrections an admin already made by hand are kept. Turning this off removes only the corrections Gulf added.",
+   "fieldname": "arabic_fixes",
+   "fieldtype": "Check",
+   "label": "Improved Arabic Translation"
+  },
+  {
+   "fieldname": "arabic_fix_log",
+   "fieldtype": "Long Text",
+   "hidden": 1,
+   "label": "Arabic Fix Log",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_workspaces",
+   "fieldtype": "Section Break",
+   "label": "Workspaces"
+  },
+  {
+   "default": "1",
+   "description": "A Who sees this button on each workspace shows it to everyone or only to chosen people and roles. Turning this off shows every workspace as it was before.",
+   "fieldname": "workspace_access",
+   "fieldtype": "Check",
+   "label": "Workspace Access"
+  },
+  {
+   "default": "1",
+   "fieldname": "workspace_builder",
+   "fieldtype": "Check",
+   "label": "Workspace Builder",
+   "description": "A New workspace button on the apps screen creates a workspace in one step: name, icon and colour, the documents and reports it lists, and who sees it. Turning this off hides the button. Workspaces already created stay as they are."
+  },
+  {
+   "fieldname": "column_break_workspaces",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "workspace_access",
+   "description": "Opens the list of workspaces and who sees each one.",
+   "fieldname": "manage_workspace_access",
+   "fieldtype": "Button",
+   "label": "Manage Workspace Access"
+  },
+  {
+   "depends_on": "workspace_builder",
+   "fieldname": "create_workspace",
+   "fieldtype": "Button",
+   "label": "Create a Workspace",
+   "description": "Opens the New workspace dialog."
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-11-05 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Gulf ERP Theme",
+ "name": "Gulf ERP Theme Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

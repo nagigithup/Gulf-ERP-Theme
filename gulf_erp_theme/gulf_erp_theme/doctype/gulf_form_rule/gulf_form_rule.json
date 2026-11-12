@@ -1,0 +1,53 @@
+{
+ "actions": [],
+ "creation": "2026-11-03 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 0,
+ "engine": "InnoDB",
+ "field_order": [
+  "form",
+  "choose",
+  "hidden_fields",
+  "visible_to"
+ ],
+ "fields": [
+  {
+   "fieldname": "form",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Document Type",
+   "options": "DocType",
+   "reqd": 1
+  },
+  {
+   "fieldname": "choose",
+   "fieldtype": "Button",
+   "label": "Choose Fields and Roles"
+  },
+  {
+   "fieldname": "hidden_fields",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Fields to Hide",
+   "description": "One field name per line. Use Choose Fields and Roles to pick them."
+  },
+  {
+   "fieldname": "visible_to",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Still Shown To",
+   "description": "Roles that keep seeing these fields, one per line. System Managers always see everything."
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2026-11-03 13:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Gulf ERP Theme",
+ "name": "Gulf Form Rule",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

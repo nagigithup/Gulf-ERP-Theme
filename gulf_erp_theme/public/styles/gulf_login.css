@@ -1,0 +1,392 @@
+/* Adapted from Lumen Theme 0.9.1, Lumen Solutions and contributors. SPDX-License-Identifier: AGPL-3.0-only */
+/* Gulf ERP Theme: the login page in the site's brand.
+   Added inline on the login page only, by gulf_erp_theme/login.py, while
+   Branded Login Page is on. The server puts the brand colour, the company
+   name, the welcome line and the image in --gl-* variables on
+   body.gulf-login, and the chosen style as a class:
+     gl-side     the brand panel beside the sign in box (the first style)
+     gl-image    the same panel showing the admin's own image
+     gl-centred  the box in the middle of a soft brand wash
+     gl-full     the whole page in the brand gradient
+     gl-minimal  a plain page, only the button and links in the brand colour
+   Logical properties, so Arabic works. */
+
+body.gulf-login {
+	--gl-deep: color-mix(in srgb, var(--gl-brand) 84%, #04103a);
+	--gl-panel: 44vw;
+	--gl-ink: #0c1322;
+	--gl-muted: #5e6878;
+	--gl-border: #e4e8f0;
+	--gl-bg: #f4f6fa;
+	min-height: 100vh;
+	background-color: var(--gl-bg);
+	font-family: "Gulf Sans", "Gulf Arabic", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	color: var(--gl-ink);
+}
+
+/* The page sits above the decorations */
+body.gulf-login > * {
+	position: relative;
+	z-index: 2;
+}
+body.gulf-login .navbar,
+body.gulf-login .web-footer,
+body.gulf-login footer {
+	background: transparent;
+	border: 0;
+	box-shadow: none;
+}
+
+/* ==========================================================================
+   Side panel and Your own image: the panel on the inline start side
+   ========================================================================== */
+body.gulf-login.gl-side,
+body.gulf-login.gl-image {
+	padding-inline-start: var(--gl-panel);
+	/* The brand panel, behind everything */
+	background-image: linear-gradient(150deg, var(--gl-brand), var(--gl-deep));
+	background-size: var(--gl-panel) 100vh;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: left top;
+}
+html[dir="rtl"] body.gulf-login.gl-side,
+html[dir="rtl"] body.gulf-login.gl-image {
+	background-position: right top;
+}
+
+/* Company name, sitting just above the middle of the panel */
+body.gulf-login.gl-side::after,
+body.gulf-login.gl-image::after {
+	content: var(--gl-name);
+	position: fixed;
+	top: 0;
+	inset-inline-start: 0;
+	width: var(--gl-panel);
+	height: 50vh;
+	box-sizing: border-box;
+	padding: 0 56px 10px;
+	display: flex;
+	align-items: flex-end;
+	color: #fff;
+	font-size: 30px;
+	font-weight: 800;
+	letter-spacing: -0.025em;
+	line-height: 1.2;
+	pointer-events: none;
+	z-index: 1;
+}
+/* Welcome line under it, on a faint grid that covers the panel */
+body.gulf-login.gl-side::before,
+body.gulf-login.gl-image::before {
+	content: var(--gl-tag);
+	position: fixed;
+	top: 0;
+	inset-inline-start: 0;
+	width: var(--gl-panel);
+	height: 100vh;
+	box-sizing: border-box;
+	padding: calc(50vh + 6px) 56px 0;
+	color: rgba(255, 255, 255, 0.82);
+	font-size: 15px;
+	line-height: 1.6;
+	background-image: linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+	background-size: 44px 44px;
+	pointer-events: none;
+	z-index: 0;
+}
+/* Your own image: the photo fills the panel under a brand tint that keeps
+   the white text readable on any picture */
+body.gulf-login.gl-image::before {
+	color: rgba(255, 255, 255, 0.9);
+	background-image: linear-gradient(
+			160deg,
+			color-mix(in srgb, var(--gl-brand) 48%, transparent),
+			rgba(4, 16, 58, 0.74)
+		),
+		var(--gl-image);
+	background-size: cover, cover;
+	background-position: center, center;
+}
+body.gulf-login.gl-image::after {
+	text-shadow: 0 1px 12px rgba(4, 16, 58, 0.35);
+}
+html[dir="rtl"] body.gulf-login.gl-side::after,
+html[dir="rtl"] body.gulf-login.gl-image::after {
+	letter-spacing: 0;
+	font-weight: 700;
+}
+
+/* The sign in card */
+body.gulf-login.gl-side .page-card,
+body.gulf-login.gl-image .page-card {
+	max-width: 420px;
+	margin-inline: auto;
+	background: #fff;
+	border: 1px solid var(--gl-border);
+	border-radius: 18px;
+	box-shadow: 0 12px 28px rgba(16, 24, 40, 0.12), 0 4px 8px rgba(16, 24, 40, 0.05);
+	padding: 32px;
+}
+
+/* ==========================================================================
+   Centred, Full colour and Minimal: the logo, the name, the welcome line and
+   the form in one column. The whole login section is the box, because v15
+   puts the logo outside the card and the other versions inside it.
+   ========================================================================== */
+body.gulf-login.gl-centred section[class*="for-"],
+body.gulf-login.gl-full section[class*="for-"],
+body.gulf-login.gl-minimal section[class*="for-"] {
+	max-width: 420px;
+	margin: 9vh auto 40px;
+	box-sizing: border-box;
+}
+body.gulf-login.gl-centred section[class*="for-"],
+body.gulf-login.gl-full section[class*="for-"] {
+	background: #fff;
+	border: 1px solid var(--gl-border);
+	border-radius: 18px;
+	box-shadow: 0 12px 28px rgba(16, 24, 40, 0.12), 0 4px 8px rgba(16, 24, 40, 0.05);
+	padding: 36px 32px 32px;
+}
+body.gulf-login.gl-full section[class*="for-"] {
+	border-color: transparent;
+	box-shadow: 0 24px 60px rgba(4, 16, 58, 0.32), 0 6px 16px rgba(4, 16, 58, 0.16);
+}
+body.gulf-login.gl-minimal section[class*="for-"] {
+	max-width: 380px;
+	margin-top: 12vh;
+	padding: 0 4px;
+}
+/* The stock card inside the box draws nothing of its own */
+body.gulf-login.gl-centred section[class*="for-"] .page-card,
+body.gulf-login.gl-full section[class*="for-"] .page-card,
+body.gulf-login.gl-minimal section[class*="for-"] .page-card {
+	max-width: none;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+/* Sign in: the company name and the welcome line replace the stock title */
+body.gulf-login.gl-centred .for-login .page-card-head,
+body.gulf-login.gl-full .for-login .page-card-head,
+body.gulf-login.gl-minimal .for-login .page-card-head {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 0;
+	margin-bottom: 24px;
+}
+body.gulf-login.gl-centred .for-login .page-card-head h4,
+body.gulf-login.gl-full .for-login .page-card-head h4,
+body.gulf-login.gl-minimal .for-login .page-card-head h4,
+body.gulf-login.gl-centred .for-login .page-card-head-text,
+body.gulf-login.gl-full .for-login .page-card-head-text,
+body.gulf-login.gl-minimal .for-login .page-card-head-text {
+	display: none;
+}
+body.gulf-login.gl-centred .for-login .page-card-head::before,
+body.gulf-login.gl-full .for-login .page-card-head::before,
+body.gulf-login.gl-minimal .for-login .page-card-head::before {
+	content: var(--gl-name);
+	order: 1;
+	margin-top: 16px;
+	font-size: 24px;
+	font-weight: 800;
+	letter-spacing: -0.025em;
+	line-height: 1.25;
+	color: var(--gl-ink);
+}
+body.gulf-login.gl-centred .for-login .page-card-head::after,
+body.gulf-login.gl-full .for-login .page-card-head::after,
+body.gulf-login.gl-minimal .for-login .page-card-head::after {
+	content: var(--gl-tag);
+	order: 2;
+	margin-top: 6px;
+	font-size: 14.5px;
+	line-height: 1.55;
+	color: var(--gl-muted);
+}
+html[dir="rtl"] body.gulf-login .for-login .page-card-head::before {
+	letter-spacing: 0;
+	font-weight: 700;
+}
+body.gulf-login.gl-centred .page-card-head,
+body.gulf-login.gl-full .page-card-head,
+body.gulf-login.gl-minimal .page-card-head {
+	align-items: center;
+	text-align: center;
+}
+
+/* Centred: a soft brand wash at the top and the faint grid of the apps screen */
+body.gulf-login.gl-centred {
+	background-image: radial-gradient(900px 460px at 50% -60px, color-mix(in srgb, var(--gl-brand) 16%, transparent), transparent 70%),
+		radial-gradient(620px 380px at 90% 110%, color-mix(in srgb, #7fa8ff 14%, transparent), transparent 70%);
+	background-attachment: fixed;
+}
+body.gulf-login.gl-centred::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+	opacity: 0.7;
+	background-image: linear-gradient(var(--gl-border) 1px, transparent 1px),
+		linear-gradient(90deg, var(--gl-border) 1px, transparent 1px);
+	background-size: 44px 44px;
+	-webkit-mask-image: radial-gradient(ellipse 820px 420px at 50% 0, #000, transparent 75%);
+	mask-image: radial-gradient(ellipse 820px 420px at 50% 0, #000, transparent 75%);
+}
+
+/* Full colour: the brand gradient over the whole page, with a faint grid */
+body.gulf-login.gl-full {
+	background-color: var(--gl-brand);
+	background-image: linear-gradient(150deg, var(--gl-brand), var(--gl-deep));
+	background-attachment: fixed;
+}
+html[dir="rtl"] body.gulf-login.gl-full {
+	background-image: linear-gradient(210deg, var(--gl-brand), var(--gl-deep));
+}
+body.gulf-login.gl-full::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+	background-image: linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+	background-size: 44px 44px;
+}
+body.gulf-login.gl-full .navbar,
+body.gulf-login.gl-full .navbar a,
+body.gulf-login.gl-full .navbar .nav-link,
+body.gulf-login.gl-full .web-footer,
+body.gulf-login.gl-full .web-footer a,
+body.gulf-login.gl-full footer,
+body.gulf-login.gl-full footer a {
+	color: rgba(255, 255, 255, 0.86);
+}
+
+/* Minimal: a plain white page */
+body.gulf-login.gl-minimal {
+	background-color: #fff;
+}
+body.gulf-login.gl-minimal .page-card-head .app-logo {
+	box-shadow: inset 0 0 0 1px var(--gl-border);
+}
+
+/* ==========================================================================
+   The parts every style shares: logo tile, inputs, buttons, links
+   ========================================================================== */
+body.gulf-login .page-card-head .app-logo {
+	width: 56px;
+	height: 56px;
+	/* v16 caps the stock logo at 32px tall, which squashed the tile */
+	max-height: none;
+	flex: none;
+	padding: 6px;
+	object-fit: contain;
+	background: #fff;
+	border-radius: 14px;
+	box-shadow: inset 0 0 0 1px var(--gl-border), 0 6px 16px color-mix(in srgb, var(--gl-brand) 18%, transparent);
+}
+body.gulf-login .page-card-head h4 {
+	font-weight: 800;
+	letter-spacing: -0.025em;
+	color: var(--gl-ink);
+}
+html[dir="rtl"] body.gulf-login .page-card-head h4 {
+	font-weight: 700;
+	letter-spacing: 0;
+}
+body.gulf-login .page-card input.form-control,
+body.gulf-login .page-card input[type="email"],
+body.gulf-login .page-card input[type="password"],
+body.gulf-login .page-card input[type="text"] {
+	border-radius: 10px;
+	border: 1px solid var(--gl-border);
+	background-color: #f0f3f8;
+}
+body.gulf-login .page-card input:focus {
+	border-color: var(--gl-brand);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--gl-brand) 30%, transparent);
+	background-color: #fff;
+	outline: none;
+}
+body.gulf-login .page-card .btn-primary,
+body.gulf-login .page-card .btn-login,
+body.gulf-login .page-card .es-button[data-variant="solid"] {
+	background-color: var(--gl-brand);
+	border-color: var(--gl-brand);
+	color: #fff;
+	border-radius: 10px;
+	font-weight: 600;
+	box-shadow: 0 6px 16px color-mix(in srgb, var(--gl-brand) 28%, transparent);
+}
+body.gulf-login .page-card .btn-primary:hover,
+body.gulf-login .page-card .btn-login:hover,
+body.gulf-login .page-card .es-button[data-variant="solid"]:hover {
+	background-color: color-mix(in srgb, var(--gl-brand) 86%, #000);
+	border-color: color-mix(in srgb, var(--gl-brand) 86%, #000);
+}
+body.gulf-login.gl-minimal .page-card .btn-primary,
+body.gulf-login.gl-minimal .page-card .btn-login,
+body.gulf-login.gl-minimal .page-card .es-button[data-variant="solid"] {
+	box-shadow: none;
+}
+body.gulf-login .page-card a {
+	color: var(--gl-brand);
+}
+
+/* ==========================================================================
+   Phones and narrow windows
+   ========================================================================== */
+@media (max-width: 900px) {
+	/* Side panel and image: the panel becomes a band at the top */
+	body.gulf-login.gl-side,
+	body.gulf-login.gl-image {
+		--gl-panel: 100vw;
+		padding-inline-start: 0;
+		padding-top: 160px;
+		background-size: 100% 160px;
+		background-attachment: scroll;
+	}
+	body.gulf-login.gl-side::after,
+	body.gulf-login.gl-image::after {
+		position: absolute;
+		height: 92px;
+		padding: 0 24px 6px;
+		justify-content: center;
+		text-align: center;
+		font-size: 24px;
+	}
+	body.gulf-login.gl-side::before,
+	body.gulf-login.gl-image::before {
+		position: absolute;
+		height: 160px;
+		padding: 98px 24px 0;
+		text-align: center;
+		font-size: 14px;
+	}
+	body.gulf-login.gl-side .page-card,
+	body.gulf-login.gl-image .page-card {
+		padding: 24px;
+	}
+	/* The column styles: the box fills the width with a 16px gutter */
+	body.gulf-login.gl-centred section[class*="for-"],
+	body.gulf-login.gl-full section[class*="for-"],
+	body.gulf-login.gl-minimal section[class*="for-"] {
+		margin: 32px 16px;
+		max-width: none;
+	}
+	body.gulf-login.gl-centred section[class*="for-"],
+	body.gulf-login.gl-full section[class*="for-"] {
+		padding: 28px 20px 24px;
+	}
+}
